@@ -1,7 +1,42 @@
-.vercel
+# Dependencies
 node_modules/
-.env
 .venv/
 build/
-# Raw PDFs stay in the Obsidian vault — extracted text is committed to knowledge-base/raw-text/
-# If you add new PDFs, run: .venv/Scripts/python scripts/extract-pdfs.py
+dist/
+
+# Environment
+.env
+
+# Vercel
+.vercel
+
+# Obsidian vault internals
+.obsidian/
+
+# Raw PDFs — extracted text is committed to knowledge-base/raw-text/ instead
+# To add new PDFs: drop in raw/, run .venv/Scripts/python scripts/extract-pdfs.py
+raw/
+
+# Misc Obsidian/editor files
+Untitled.base
+templates/
+wiki/
+*.base
+Welcome.md
+CLAUDE (1).md
+Obsidian-KB-Structure-Missouri-Aetna.md
+Claude-Code-Build-Instructions.md
+Claude-Code-KB-Coverage-Verification-Prompt.md
+
+# Obsidian-vault duplicate (canonical copy: knowledge-base/Missouri-Cities-Counties.md)
+missouri_cities_and_counties.md
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Local dev server (not part of app)
+server.js
+vite.config.js
+postcss.config.js
+tailwind.config.js
+src/index.css
