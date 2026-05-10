@@ -60,3 +60,4 @@ Files in `/knowledge-base/` are read at runtime by the API function. Keep these 
 |---|---|
 | `ANTHROPIC_API_KEY` | Required. Your Anthropic API key. |
 | `KB_PATH` | Optional. Absolute path to KB files. Defaults to `./knowledge-base`. |
+"# aetna-customer-assistant" 
