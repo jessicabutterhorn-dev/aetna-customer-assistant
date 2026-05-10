@@ -293,12 +293,7 @@ function selectFiles(conversationText) {
   return selected;
 }
 
-function buildSystemPrompt(files) {
-  const kbText = files
-    .map((f) => `## ${f.label}\n\n${f.content}`)
-    .join("\n\n---\n\n");
-
-  return `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri (Heartland Market). Answer with 100% accuracy based only on the knowledge base below. Never use training data or make up information. If the knowledge base does not contain the answer, use the escalation phrases below.
+const STATIC_INSTRUCTIONS = `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri (Heartland Market). Answer with 100% accuracy based only on the knowledge base below. Never use training data or make up information. If the knowledge base does not contain the answer, use the escalation phrases below.
 
 MANDATORY CLOSING DISCLAIMER: Append to every answer that references any Aetna plan document:
 "This information reflects the 2026 plan documents available in the system. For the most current and up-to-date information, please visit AetnaMedicare.com or contact Aetna Medicare Customer Service."
@@ -319,9 +314,32 @@ SOURCES_JSON:{"sources":[{"file":"filename","label":"Section Label","excerpt":"2
 
 Do NOT output SOURCES_JSON when asking a clarifying question.
 
-KNOWLEDGE BASE:
+KNOWLEDGE BASE:`;
 
-${kbText}`;
+function formatKBSection(files) {
+  return files.map((f) => `## ${f.label}\n\n${f.content}`).join("\n\n---\n\n");
+}
+
+// Returns the stable prefix: instructions + universal files (priority=1).
+// Used as the cached block in the Anthropic system parameter.
+function buildCachedSystemPrefix(universalFiles) {
+  return STATIC_INSTRUCTIONS + "\n\n" + formatKBSection(universalFiles);
+}
+
+// Returns the query-specific KB content (priority>=2).
+// Not cached — changes every request.
+function buildDynamicKBSection(querySpecificFiles) {
+  return formatKBSection(querySpecificFiles);
+}
+
+// Full system prompt for OpenAI-compatible providers (Cerebras, Groq).
+// Concatenates both parts — same text output as before the refactor.
+function buildSystemPrompt(files) {
+  const universal = files.filter((f) => f.priority === 1);
+  const specific = files.filter((f) => f.priority !== 1);
+  const cached = buildCachedSystemPrefix(universal);
+  const dynamic = buildDynamicKBSection(specific);
+  return dynamic ? cached + "\n\n---\n\n" + dynamic : cached;
 }
 
 function extractSources(text) {
