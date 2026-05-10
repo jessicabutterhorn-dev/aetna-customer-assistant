@@ -8,8 +8,8 @@ const MAX_TOKENS = 1500;
 
 // Small files always included regardless of query topic
 const UNIVERSAL_FILES = [
-  { name: "Escalation-Language.md", label: "Escalation Language", charLimit: 4000 },
-  { name: "Plan-Service-Areas.md", label: "Plan Service Areas", charLimit: 5000 },
+  { name: "Escalation-Language.md", label: "Escalation Language", charLimit: 3000 },
+  { name: "Plan-Service-Areas.md", label: "Plan Service Areas", charLimit: 3500 },
 ];
 
 // Markdown concept/skill files with keyword routing
@@ -143,7 +143,7 @@ function selectFiles(conversationText) {
       (e) => e.type === "sob" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
     );
     if (sobEntry) {
-      const content = readFile(sobEntry.name, 12000);
+      const content = readFile(sobEntry.name, 8000);
       if (content) add(`sob-${hNum}`, `Summary of Benefits — ${hNum}`, content, 2);
     }
 
@@ -164,7 +164,7 @@ function selectFiles(conversationText) {
         (e) => e.type === "eoc" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
       );
       if (eocEntry) {
-        const content = readFile(eocEntry.name, 10000);
+        const content = readFile(eocEntry.name, 6000);
         if (content) add(`eoc-${hNum}`, `Evidence of Coverage — ${hNum}`, content, 2);
       }
     }
@@ -220,9 +220,20 @@ function selectFiles(conversationText) {
     }
   }
 
-  // City/county geographic routing — load cities file in addition to universal Plan-Service-Areas
+  // City/county geographic routing — search for the mentioned city rather than loading the full file
+  // Full file is 63KB which exceeds Groq context limits; targeted search keeps tokens under control
   if (GEO_KEYWORDS.some((kw) => q.includes(kw))) {
-    const content = readFile("Missouri-Cities-Counties.md", 30000);
+    const cityMatch = conversationText.match(/(?:in|lives in|located in|from|near|city of)\s+([A-Z][a-zA-Z\s]{2,20}?)(?:\s*[,?.!]|$)/);
+    const cityName = cityMatch ? cityMatch[1].trim() : null;
+    let content;
+    if (cityName) {
+      const excerpt = searchInFile("Missouri-Cities-Counties.md", cityName, 8);
+      content = excerpt
+        ? `[Missouri Cities & Counties — search results for "${cityName}"]\n\n${excerpt}`
+        : `[City "${cityName}" not found in Missouri cities list. Confirm county with member.]`;
+    } else {
+      content = readFile("Missouri-Cities-Counties.md", 4000);
+    }
     if (content) add("cities", "Missouri Cities & Counties", content, 3);
   }
 
