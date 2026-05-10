@@ -1,0 +1,1937 @@
+{
+  "files": [
+    {
+      "name": "raw-text/supplemental/2026 LIS Premium Summary Table.txt",
+      "label": "Reference \u2014 All Plans",
+      "type": "supplemental",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "lis",
+        "low income",
+        "extra help",
+        "medicare and you",
+        "annual enrollment",
+        "aep"
+      ]
+    },
+    {
+      "name": "raw-text/supplemental/2026_LIS_SUMMARY_TABLE.txt",
+      "label": "Reference \u2014 All Plans",
+      "type": "supplemental",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "lis",
+        "low income",
+        "extra help",
+        "medicare and you",
+        "annual enrollment",
+        "aep"
+      ]
+    },
+    {
+      "name": "raw-text/supplemental/2026_MEDICARE_AND_YOU.txt",
+      "label": "Reference \u2014 All Plans",
+      "type": "supplemental",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "lis",
+        "low income",
+        "extra help",
+        "medicare and you",
+        "annual enrollment",
+        "aep"
+      ]
+    },
+    {
+      "name": "raw-text/supplemental/Aetna_Medicare_Missouri_Heartland_Plans.txt",
+      "label": "Reference \u2014 All Plans",
+      "type": "supplemental",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "lis",
+        "low income",
+        "extra help",
+        "medicare and you",
+        "annual enrollment",
+        "aep"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H1608_016.txt",
+      "label": "Annual Notice of Change \u2014 H1608-016",
+      "type": "anoc",
+      "plan_ids": [
+        "H1608-016"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h1608-016",
+        "h1608_016",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H1608_018.txt",
+      "label": "Annual Notice of Change \u2014 H1608-018",
+      "type": "anoc",
+      "plan_ids": [
+        "H1608-018"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h1608-018",
+        "h1608_018",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H1608_050.txt",
+      "label": "Annual Notice of Change \u2014 H1608-050",
+      "type": "anoc",
+      "plan_ids": [
+        "H1608-050"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h1608-050",
+        "h1608_050",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H1608_051.txt",
+      "label": "Annual Notice of Change \u2014 H1608-051",
+      "type": "anoc",
+      "plan_ids": [
+        "H1608-051"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h1608-051",
+        "h1608_051",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H1608_067.txt",
+      "label": "Annual Notice of Change \u2014 H1608-067",
+      "type": "anoc",
+      "plan_ids": [
+        "H1608-067"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h1608-067",
+        "h1608_067",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_002cH2663_006.txt",
+      "label": "Annual Notice of Change \u2014 H2663-002/H2663-006",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-002",
+        "H2663-006"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-002",
+        "h2663_002",
+        "h2663-006",
+        "h2663_006",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_005.txt",
+      "label": "Annual Notice of Change \u2014 H2663-005",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-005"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-005",
+        "h2663_005",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_021.txt",
+      "label": "Annual Notice of Change \u2014 H2663-021",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-021"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-021",
+        "h2663_021",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_022.txt",
+      "label": "Annual Notice of Change \u2014 H2663-022",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-022"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-022",
+        "h2663_022",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_026.txt",
+      "label": "Annual Notice of Change \u2014 H2663-026",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-026"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-026",
+        "h2663_026",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_041_HP63.txt",
+      "label": "Annual Notice of Change \u2014 H2663-041",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-041"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-041",
+        "h2663_041",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_042.txt",
+      "label": "Annual Notice of Change \u2014 H2663-042",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-042"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-042",
+        "h2663_042",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_043.txt",
+      "label": "Annual Notice of Change \u2014 H2663-043",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-043"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-043",
+        "h2663_043",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_052.txt",
+      "label": "Annual Notice of Change \u2014 H2663-052",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-052"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-052",
+        "h2663_052",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_054cH2663_052.txt",
+      "label": "Annual Notice of Change \u2014 H2663-054/H2663-052",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-054",
+        "H2663-052"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-054",
+        "h2663_054",
+        "h2663-052",
+        "h2663_052",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_055cH2663_052.txt",
+      "label": "Annual Notice of Change \u2014 H2663-055/H2663-052",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-055",
+        "H2663-052"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-055",
+        "h2663_055",
+        "h2663-052",
+        "h2663_052",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_056.txt",
+      "label": "Annual Notice of Change \u2014 H2663-056",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-056"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-056",
+        "h2663_056",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_061.txt",
+      "label": "Annual Notice of Change \u2014 H2663-061",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-061"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-061",
+        "h2663_061",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_063.txt",
+      "label": "Annual Notice of Change \u2014 H2663-063",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-063"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-063",
+        "h2663_063",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H2663_064.txt",
+      "label": "Annual Notice of Change \u2014 H2663-064",
+      "type": "anoc",
+      "plan_ids": [
+        "H2663-064"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h2663-064",
+        "h2663_064",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H5325_003.txt",
+      "label": "Annual Notice of Change \u2014 H5325-003",
+      "type": "anoc",
+      "plan_ids": [
+        "H5325-003"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h5325-003",
+        "h5325_003",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H5325_004.txt",
+      "label": "Annual Notice of Change \u2014 H5325-004",
+      "type": "anoc",
+      "plan_ids": [
+        "H5325-004"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h5325-004",
+        "h5325_004",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H5325_0044.txt",
+      "label": "Annual Notice of Change \u2014 H5325-0044",
+      "type": "anoc",
+      "plan_ids": [
+        "H5325-0044"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h5325-0044",
+        "h5325_0044",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H5325_005.txt",
+      "label": "Annual Notice of Change \u2014 H5325-005",
+      "type": "anoc",
+      "plan_ids": [
+        "H5325-005"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h5325-005",
+        "h5325_005",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/anoc/Annual Notice of Change H5325_006.txt",
+      "label": "Annual Notice of Change \u2014 H5325-006",
+      "type": "anoc",
+      "plan_ids": [
+        "H5325-006"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "h5325-006",
+        "h5325_006",
+        "annual notice",
+        "anoc",
+        "changed",
+        "changes",
+        "2025",
+        "2026 change",
+        "what changed"
+      ]
+    },
+    {
+      "name": "raw-text/extra-benefit/CSNP_Extra_Benefit_Card.txt",
+      "label": "Extra Benefits \u2014 CSNP",
+      "type": "extra-benefit",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "CSNP",
+      "keywords": [
+        "otc",
+        "wallet",
+        "extra benefit",
+        "flex card",
+        "grocery",
+        "food card",
+        "utility",
+        "csnp"
+      ]
+    },
+    {
+      "name": "raw-text/formulary/CSNP_Formulary_B2_2026.txt",
+      "label": "Formulary \u2014 CSNP",
+      "type": "formulary",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "CSNP",
+      "keywords": [
+        "drug",
+        "medication",
+        "prescription",
+        "rx",
+        "formulary",
+        "tier",
+        "part d",
+        "csnp"
+      ]
+    },
+    {
+      "name": "raw-text/extra-benefit/DSNP_extra_Benefit_Card_EXTRA_SUPPORT_WALLET.txt",
+      "label": "Extra Benefits \u2014 DSNP",
+      "type": "extra-benefit",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "otc",
+        "wallet",
+        "extra benefit",
+        "flex card",
+        "grocery",
+        "food card",
+        "utility",
+        "dsnp"
+      ]
+    },
+    {
+      "name": "raw-text/extra-benefit/DSNP_extra_Benefit_Card_OTC_ONLY.txt",
+      "label": "Extra Benefits \u2014 DSNP",
+      "type": "extra-benefit",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "otc",
+        "wallet",
+        "extra benefit",
+        "flex card",
+        "grocery",
+        "food card",
+        "utility",
+        "dsnp"
+      ]
+    },
+    {
+      "name": "raw-text/formulary/DSNP_Formulary_B2_2026.txt",
+      "label": "Formulary \u2014 DSNP",
+      "type": "formulary",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "drug",
+        "medication",
+        "prescription",
+        "rx",
+        "formulary",
+        "tier",
+        "part d",
+        "dsnp"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H1608_013.txt",
+      "label": "Evidence of Coverage \u2014 H1608-013",
+      "type": "eoc",
+      "plan_ids": [
+        "H1608-013"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-013",
+        "h1608_013",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H1608_016.txt",
+      "label": "Evidence of Coverage \u2014 H1608-016",
+      "type": "eoc",
+      "plan_ids": [
+        "H1608-016"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-016",
+        "h1608_016",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H1608_018.txt",
+      "label": "Evidence of Coverage \u2014 H1608-018",
+      "type": "eoc",
+      "plan_ids": [
+        "H1608-018"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-018",
+        "h1608_018",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H1608_050_.txt",
+      "label": "Evidence of Coverage \u2014 H1608-050",
+      "type": "eoc",
+      "plan_ids": [
+        "H1608-050"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-050",
+        "h1608_050",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H1608_051.txt",
+      "label": "Evidence of Coverage \u2014 H1608-051",
+      "type": "eoc",
+      "plan_ids": [
+        "H1608-051"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-051",
+        "h1608_051",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H1608_067.txt",
+      "label": "Evidence of Coverage \u2014 H1608-067",
+      "type": "eoc",
+      "plan_ids": [
+        "H1608-067"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-067",
+        "h1608_067",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_005.txt",
+      "label": "Evidence of Coverage \u2014 H2663-005",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-005"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-005",
+        "h2663_005",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_006.txt",
+      "label": "Evidence of Coverage \u2014 H2663-006",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-006"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-006",
+        "h2663_006",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_021.txt",
+      "label": "Evidence of Coverage \u2014 H2663-021",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-021"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-021",
+        "h2663_021",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_022.txt",
+      "label": "Evidence of Coverage \u2014 H2663-022",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-022"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-022",
+        "h2663_022",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_023.txt",
+      "label": "Evidence of Coverage \u2014 H2663-023",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-023"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-023",
+        "h2663_023",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_026.txt",
+      "label": "Evidence of Coverage \u2014 H2663-026",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-026"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-026",
+        "h2663_026",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_041.txt",
+      "label": "Evidence of Coverage \u2014 H2663-041",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-041"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-041",
+        "h2663_041",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_042.txt",
+      "label": "Evidence of Coverage \u2014 H2663-042",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-042"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-042",
+        "h2663_042",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_043.txt",
+      "label": "Evidence of Coverage \u2014 H2663-043",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-043"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-043",
+        "h2663_043",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_052.txt",
+      "label": "Evidence of Coverage \u2014 H2663-052",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-052"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-052",
+        "h2663_052",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_056.txt",
+      "label": "Evidence of Coverage \u2014 H2663-056",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-056"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-056",
+        "h2663_056",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_057.txt",
+      "label": "Evidence of Coverage \u2014 H2663-057",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-057"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-057",
+        "h2663_057",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_061.txt",
+      "label": "Evidence of Coverage \u2014 H2663-061",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-061"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-061",
+        "h2663_061",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_063.txt",
+      "label": "Evidence of Coverage \u2014 H2663-063",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-063"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-063",
+        "h2663_063",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_064.txt",
+      "label": "Evidence of Coverage \u2014 H2663-064",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-064"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-064",
+        "h2663_064",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_098.txt",
+      "label": "Evidence of Coverage \u2014 H2663-098",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-098"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-098",
+        "h2663_098",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H2663_102.txt",
+      "label": "Evidence of Coverage \u2014 H2663-102",
+      "type": "eoc",
+      "plan_ids": [
+        "H2663-102"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-102",
+        "h2663_102",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H5325_003.txt",
+      "label": "Evidence of Coverage \u2014 H5325-003",
+      "type": "eoc",
+      "plan_ids": [
+        "H5325-003"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-003",
+        "h5325_003",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H5325_005.txt",
+      "label": "Evidence of Coverage \u2014 H5325-005",
+      "type": "eoc",
+      "plan_ids": [
+        "H5325-005"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-005",
+        "h5325_005",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H5325_006.txt",
+      "label": "Evidence of Coverage \u2014 H5325-006",
+      "type": "eoc",
+      "plan_ids": [
+        "H5325-006"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-006",
+        "h5325_006",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H5325_012.txt",
+      "label": "Evidence of Coverage \u2014 H5325-012",
+      "type": "eoc",
+      "plan_ids": [
+        "H5325-012"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-012",
+        "h5325_012",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H5325_013.txt",
+      "label": "Evidence of Coverage \u2014 H5325-013",
+      "type": "eoc",
+      "plan_ids": [
+        "H5325-013"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-013",
+        "h5325_013",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H5325_014.txt",
+      "label": "Evidence of Coverage \u2014 H5325-014",
+      "type": "eoc",
+      "plan_ids": [
+        "H5325-014"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-014",
+        "h5325_014",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/eoc/Evidence of Coverage H5325_015.txt",
+      "label": "Evidence of Coverage \u2014 H5325-015",
+      "type": "eoc",
+      "plan_ids": [
+        "H5325-015"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-015",
+        "h5325_015",
+        "evidence of coverage",
+        "eoc",
+        "coverage",
+        "covered",
+        "benefit"
+      ]
+    },
+    {
+      "name": "raw-text/formulary/FORMULARY HMO_Formulary_B2_2026.txt",
+      "label": "Formulary \u2014 HMO",
+      "type": "formulary",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "drug",
+        "medication",
+        "prescription",
+        "rx",
+        "formulary",
+        "tier",
+        "part d",
+        "hmo"
+      ]
+    },
+    {
+      "name": "raw-text/formulary/FORMULARY HMO_POS_FORMULARY_B2_2026.txt",
+      "label": "Formulary \u2014 HMO-POS",
+      "type": "formulary",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "HMO-POS",
+      "keywords": [
+        "drug",
+        "medication",
+        "prescription",
+        "rx",
+        "formulary",
+        "tier",
+        "part d",
+        "hmo-pos"
+      ]
+    },
+    {
+      "name": "raw-text/formulary/FORMULARY PPO_Formulary_B2_2026.txt",
+      "label": "Formulary \u2014 PPO",
+      "type": "formulary",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "drug",
+        "medication",
+        "prescription",
+        "rx",
+        "formulary",
+        "tier",
+        "part d",
+        "ppo"
+      ]
+    },
+    {
+      "name": "raw-text/extra-benefit/HMO_POS_EXTRA_BENEFIT_CARD_AND_OTC_WALLET.txt",
+      "label": "Extra Benefits \u2014 HMO-POS",
+      "type": "extra-benefit",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "HMO-POS",
+      "keywords": [
+        "otc",
+        "wallet",
+        "extra benefit",
+        "flex card",
+        "grocery",
+        "food card",
+        "utility",
+        "hmo-pos"
+      ]
+    },
+    {
+      "name": "raw-text/extra-benefit/HMO_POS_extra_Benefit_Card_EXTRA_SUPPORT_WALLET_AND_OTC_WALLET.txt",
+      "label": "Extra Benefits \u2014 HMO-POS",
+      "type": "extra-benefit",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "HMO-POS",
+      "keywords": [
+        "otc",
+        "wallet",
+        "extra benefit",
+        "flex card",
+        "grocery",
+        "food card",
+        "utility",
+        "hmo-pos"
+      ]
+    },
+    {
+      "name": "raw-text/extra-benefit/HMO_POS_extra_Benefit_Card_OTC_WALLET_ONLY.txt",
+      "label": "Extra Benefits \u2014 HMO-POS",
+      "type": "extra-benefit",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": "HMO-POS",
+      "keywords": [
+        "otc",
+        "wallet",
+        "extra benefit",
+        "flex card",
+        "grocery",
+        "food card",
+        "utility",
+        "hmo-pos"
+      ]
+    },
+    {
+      "name": "raw-text/extra-benefit/OTC_CATALOG_2026.txt",
+      "label": "Extra Benefits \u2014 All Plans",
+      "type": "extra-benefit",
+      "plan_ids": [
+        "all"
+      ],
+      "plan_family": null,
+      "keywords": [
+        "otc",
+        "wallet",
+        "extra benefit",
+        "flex card",
+        "grocery",
+        "food card",
+        "utility"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits 2663_063.txt",
+      "label": "Summary of Benefits \u2014 H2663-063",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-063"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-063",
+        "h2663_063",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H1608_013.txt",
+      "label": "Summary of Benefits \u2014 H1608-013",
+      "type": "sob",
+      "plan_ids": [
+        "H1608-013"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-013",
+        "h1608_013",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H1608_016.txt",
+      "label": "Summary of Benefits \u2014 H1608-016",
+      "type": "sob",
+      "plan_ids": [
+        "H1608-016"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-016",
+        "h1608_016",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H1608_018.txt",
+      "label": "Summary of Benefits \u2014 H1608-018",
+      "type": "sob",
+      "plan_ids": [
+        "H1608-018"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-018",
+        "h1608_018",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H1608_050.txt",
+      "label": "Summary of Benefits \u2014 H1608-050",
+      "type": "sob",
+      "plan_ids": [
+        "H1608-050"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-050",
+        "h1608_050",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H1608_051_PP22_SB2026_M.txt",
+      "label": "Summary of Benefits \u2014 H1608-051",
+      "type": "sob",
+      "plan_ids": [
+        "H1608-051"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-051",
+        "h1608_051",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H1608_067.txt",
+      "label": "Summary of Benefits \u2014 H1608-067",
+      "type": "sob",
+      "plan_ids": [
+        "H1608-067"
+      ],
+      "plan_family": "PPO",
+      "keywords": [
+        "h1608-067",
+        "h1608_067",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_005.txt",
+      "label": "Summary of Benefits \u2014 H2663-005",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-005"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-005",
+        "h2663_005",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_006.txt",
+      "label": "Summary of Benefits \u2014 H2663-006",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-006"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-006",
+        "h2663_006",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_021.txt",
+      "label": "Summary of Benefits \u2014 H2663-021",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-021"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-021",
+        "h2663_021",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_022.txt",
+      "label": "Summary of Benefits \u2014 H2663-022",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-022"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-022",
+        "h2663_022",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_023.txt",
+      "label": "Summary of Benefits \u2014 H2663-023",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-023"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-023",
+        "h2663_023",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_026.txt",
+      "label": "Summary of Benefits \u2014 H2663-026",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-026"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-026",
+        "h2663_026",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_041.txt",
+      "label": "Summary of Benefits \u2014 H2663-041",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-041"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-041",
+        "h2663_041",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_042.txt",
+      "label": "Summary of Benefits \u2014 H2663-042",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-042"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-042",
+        "h2663_042",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_043.txt",
+      "label": "Summary of Benefits \u2014 H2663-043",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-043"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-043",
+        "h2663_043",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_052.txt",
+      "label": "Summary of Benefits \u2014 H2663-052",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-052"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-052",
+        "h2663_052",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_056.txt",
+      "label": "Summary of Benefits \u2014 H2663-056",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-056"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-056",
+        "h2663_056",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_057.txt",
+      "label": "Summary of Benefits \u2014 H2663-057",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-057"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-057",
+        "h2663_057",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_061.txt",
+      "label": "Summary of Benefits \u2014 H2663-061",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-061"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-061",
+        "h2663_061",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_064.txt",
+      "label": "Summary of Benefits \u2014 H2663-064",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-064"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-064",
+        "h2663_064",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_098.txt",
+      "label": "Summary of Benefits \u2014 H2663-098",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-098"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-098",
+        "h2663_098",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H2663_102.txt",
+      "label": "Summary of Benefits \u2014 H2663-102",
+      "type": "sob",
+      "plan_ids": [
+        "H2663-102"
+      ],
+      "plan_family": "HMO",
+      "keywords": [
+        "h2663-102",
+        "h2663_102",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_003.txt",
+      "label": "Summary of Benefits \u2014 H5325-003",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-003"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-003",
+        "h5325_003",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_004.txt",
+      "label": "Summary of Benefits \u2014 H5325-004",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-004"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-004",
+        "h5325_004",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_005.txt",
+      "label": "Summary of Benefits \u2014 H5325-005",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-005"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-005",
+        "h5325_005",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_006.txt",
+      "label": "Summary of Benefits \u2014 H5325-006",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-006"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-006",
+        "h5325_006",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_012.txt",
+      "label": "Summary of Benefits \u2014 H5325-012",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-012"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-012",
+        "h5325_012",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_013.txt",
+      "label": "Summary of Benefits \u2014 H5325-013",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-013"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-013",
+        "h5325_013",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_014.txt",
+      "label": "Summary of Benefits \u2014 H5325-014",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-014"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-014",
+        "h5325_014",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    },
+    {
+      "name": "raw-text/sob/Summary of Benefits H5325_015.txt",
+      "label": "Summary of Benefits \u2014 H5325-015",
+      "type": "sob",
+      "plan_ids": [
+        "H5325-015"
+      ],
+      "plan_family": "DSNP",
+      "keywords": [
+        "h5325-015",
+        "h5325_015",
+        "summary of benefits",
+        "sob",
+        "copay",
+        "deductible",
+        "premium",
+        "cost"
+      ]
+    }
+  ]
+}

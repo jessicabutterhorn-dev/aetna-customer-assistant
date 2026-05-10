@@ -1,0 +1,110 @@
+Aetna Medicare
+Missouri Heartland Market — Plan Service Areas
+Contract-P Plan Name Plan Service Area (Missouri Counties)
+BP
+H1608-013 Aetna Medicare Enhanced (PPO) Adair, Audrain, Boone, Callaway, Camden, Carter, Chariton, Cole, Cooper, Crawford, Dent,
+Franklin, Gasconade, Howard, Howell, Iron, Jefferson, Knox, Lewis, Lincoln, Linn, Macon, Maries,
+Marion, Miller, Moniteau, Monroe, Montgomery, Morgan, Oregon, Osage, Perry, Phelps, Pike,
+Pulaski, Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Shannon, Shelby, St. Charles, St.
+Francois, St. Louis, St. Louis City, Ste. Genevieve, Sullivan, Texas, Warren, Washington
+H1608-016 Aetna Medicare Signature (PPO) Caldwell, Clay, Clinton, Jackson, Lafayette, Livingston, Platte, Ray, Saline
+H1608-018 Aetna Medicare Signature (PPO) Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+Lawrence, McDonald, Newton, Ozark, Polk, St. Clair, Stone, Taney, Webster, Wright
+H1608-050 Aetna Medicare Elite (PPO) Adair, Audrain, Boone, Callaway, Camden, Carter, Chariton, Cole, Cooper, Crawford, Dent,
+Franklin, Gasconade, Howard, Howell, Iron, Jefferson, Knox, Lewis, Lincoln, Linn, Macon, Maries,
+Marion, Miller, Moniteau, Monroe, Montgomery, Morgan, Oregon, Osage, Perry, Phelps, Pike,
+Pulaski, Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Shannon, Shelby, St. Charles, St.
+Francois, St. Louis, St. Louis City, Ste. Genevieve, Sullivan, Texas, Warren, Washington
+H1608-051 Aetna Medicare Signature (PPO) Bollinger, Butler, Cape Girardeau, Madison, Mississippi, New Madrid, Pemiscot, Scott, Stoddard,
+Wayne
+H1608-052 Aetna Medicare Elite (PPO) Andrew, Atchison, Buchanan, Daviess, DeKalb, Gentry, Grundy, Harrison, Holt, Mercer, Nodaway,
+Worth
+H1608-067 Aetna Medicare Signature (PPO) Adair, Audrain, Boone, Callaway, Camden, Carter, Chariton, Cole, Cooper, Crawford, Dent,
+Franklin, Gasconade, Howard, Howell, Iron, Jefferson, Knox, Lewis, Lincoln, Linn, Macon, Maries,
+Marion, Miller, Moniteau, Monroe, Montgomery, Morgan, Oregon, Osage, Perry, Phelps, Pike,
+Pulaski, Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Shannon, Shelby, St. Charles, St.
+Francois, St. Louis, St. Louis City, Ste. Genevieve, Sullivan, Texas, Warren, Washington
+H2663-005 Aetna Medicare Signature Callaway, Crawford, Franklin, Gasconade, Jefferson, Lincoln, St. Charles, St. Louis, St. Louis City,
+(HMO-POS) Warren
+H2663-006 Aetna Medicare Enhanced Extra Audrain, Bollinger, Boone, Butler, Callaway, Cape Girardeau, Cole, Cooper, Crawford, Franklin,
+(HMO-POS) Gasconade, Howard, Jefferson, Knox, Lincoln, Madison, Maries, Miller, Mississippi, Moniteau,
+Montgomery, New Madrid, Osage, Pemiscot, Perry, Pike, Pulaski, Scott, Shelby, St. Charles, St.
+Francois, St. Louis, St. Louis City, Ste. Genevieve, Stoddard, Warren, Washington, Wayne
+H2663-021 Aetna Medicare Premier Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+(HMO-POS) Lawrence, McDonald, Newton, Ozark, Polk, Stone, Taney, Webster, Wright
+H2663-022 Aetna Medicare Eagle Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+(HMO-POS) Lawrence, McDonald, Newton, Ozark, Polk, Stone, Taney, Webster, Wright
+H2663-023 Aetna Medicare Select Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+(HMO-POS) Lawrence, McDonald, Newton, Ozark, Polk, Stone, Taney, Webster, Wright
+H2663-025 Aetna Medicare Eagle Service area pending verification - flag for human follow-up before quoting to caller.
+(HMO-POS)
+H2663-026 Aetna Medicare Signature Caldwell, Clay, Clinton, Jackson, Lafayette, Livingston, Platte, Ray, Saline
+(HMO-POS)
+H2663-041 Aetna Medicare Signature Adair, Audrain, Bollinger, Boone, Butler, Camden, Cape Girardeau, Carter, Chariton, Cole, Cooper,
+(HMO-POS) Dent, Howard, Howell, Iron, Knox, Lewis, Linn, Macon, Madison, Maries, Marion, Miller,
+Mississippi, Moniteau, Monroe, Montgomery, Morgan, New Madrid, Oregon, Osage, Pemiscot,
+Perry, Phelps, Pike, Pulaski, Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Scott,
+Shannon, Shelby, St. Francois, Ste. Genevieve, Stoddard, Sullivan, Texas, Washington, Wayne
+
+Contract-P Plan Name Plan Service Area (Missouri Counties)
+BP
+H2663-042 Aetna Medicare Signature (HMO) Andrew, Atchison, Buchanan, Daviess, DeKalb, Gentry, Grundy, Harrison, Holt, Mercer, Nodaway,
+Worth
+H2663-043 Aetna Medicare Signature Extra Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+(HMO-POS) Lawrence, McDonald, Newton, Ozark, Polk, St. Clair, Stone, Taney, Webster, Wright
+H2663-052 Aetna Medicare Value Plus (HMO) Bates, Benton, Caldwell, Carroll, Cass, Clay, Clinton, Henry, Jackson, Johnson, Lafayette,
+Livingston, Pettis, Platte, Ray, Saline, Vernon
+H2663-056 Aetna Medicare Value Plus (HMO) Andrew, Atchison, Buchanan, Daviess, DeKalb, Gentry, Grundy, Harrison, Holt, Mercer, Nodaway,
+Worth
+H2663-057 Aetna Medicare Value Plus Adair, Audrain, Bollinger, Boone, Butler, Callaway, Camden, Cape Girardeau, Carter, Chariton,
+(HMO-POS) Cole, Cooper, Crawford, Dent, Franklin, Gasconade, Howard, Howell, Iron, Jefferson, Knox, Lewis,
+Lincoln, Linn, Macon, Madison, Maries, Marion, Miller, Mississippi, Moniteau, Monroe,
+Montgomery, Morgan, New Madrid, Oregon, Osage, Pemiscot, Perry, Phelps, Pike, Pulaski,
+Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Scott, Shannon, Shelby, St. Charles, St.
+Francois, St. Louis, St. Louis City, Ste. Genevieve, Stoddard, Sullivan, Texas, Warren,
+Washington, Wayne
+H2663-061 Aetna Medicare Signature Extra Caldwell, Clay, Clinton, Jackson, Lafayette, Livingston, Platte, Ray, Saline
+(HMO-POS)
+H2663-063 Aetna Medicare Signature Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+(HMO-POS) Lawrence, McDonald, Newton, Ozark, Polk, St. Clair, Stone, Taney, Webster, Wright
+H2663-064 Aetna Medicare Value Plus (HMO) Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+Lawrence, McDonald, Newton, Ozark, Polk, St. Clair, Stone, Taney, Webster, Wright
+H2663-069 Aetna Medicare Eagle Adair, Audrain, Bollinger, Boone, Butler, Callaway, Camden, Cape Girardeau, Carter, Chariton,
+(HMO-POS) Cole, Cooper, Crawford, Dent, Franklin, Gasconade, Howard, Howell, Iron, Jefferson, Knox, Lewis,
+Lincoln, Linn, Macon, Madison, Maries, Marion, Miller, Mississippi, Moniteau, Monroe,
+Montgomery, Morgan, New Madrid, Oregon, Osage, Pemiscot, Perry, Phelps, Pike, Pulaski,
+Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Scott, Shannon, Shelby, St. Charles, St.
+Francois, St. Louis, St. Louis City, Ste. Genevieve, Stoddard, Sullivan, Texas, Warren,
+Washington, Wayne
+H2663-098 Aetna Medicare Chronic Care Clay, Jackson, Platte
+(HMO C-SNP)
+H2663-102 Aetna Medicare Chronic Care Crawford, Franklin, Jefferson, Lincoln, St. Charles, St. Louis, St. Louis City, Warren
+(HMO C-SNP)
+H5325-003 Aetna Medicare Dual Care (HMO Andrew, Atchison, Bates, Benton, Buchanan, Caldwell, Carroll, Cass, Clay, Clinton, Daviess,
+D-SNP) DeKalb, Gentry, Grundy, Harrison, Henry, Holt, Jackson, Johnson, Lafayette, Livingston, Mercer,
+Nodaway, Pettis, Platte, Ray, Saline, Vernon, Worth
+H5325-004 Aetna Medicare Dual (HMO Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+D-SNP) Lawrence, McDonald, Newton, Ozark, Polk, St. Clair, Stone, Taney, Webster, Wright
+H5325-005 Aetna Medicare Dual (HMO Callaway, Crawford, Franklin, Gasconade, Jefferson, Lincoln, St. Charles, St. Louis, St. Louis City,
+D-SNP) Warren
+H5325-006 Aetna Medicare Dual (HMO Adair, Audrain, Bollinger, Boone, Butler, Camden, Cape Girardeau, Carter, Chariton, Cole, Cooper,
+D-SNP) Dent, Howard, Howell, Iron, Knox, Lewis, Linn, Macon, Madison, Maries, Marion, Miller,
+Mississippi, Moniteau, Monroe, Montgomery, Morgan, New Madrid, Oregon, Osage, Pemiscot,
+Perry, Phelps, Pike, Pulaski, Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Scott,
+Shannon, Shelby, St. Francois, Ste. Genevieve, Stoddard, Sullivan, Texas, Washington, Wayne
+H5325-012 Aetna Medicare Full Dual Care Andrew, Atchison, Bates, Benton, Buchanan, Caldwell, Carroll, Cass, Clay, Clinton, Daviess,
+(HMO D-SNP) DeKalb, Gentry, Grundy, Harrison, Henry, Holt, Jackson, Johnson, Lafayette, Livingston, Mercer,
+Nodaway, Pettis, Platte, Ray, Saline, Vernon, Worth
+
+Contract-P Plan Name Plan Service Area (Missouri Counties)
+BP
+H5325-013 Aetna Medicare Full Dual (HMO Barry, Barton, Cedar, Christian, Dade, Dallas, Douglas, Greene, Hickory, Jasper, Laclede,
+D-SNP) Lawrence, McDonald, Newton, Ozark, Polk, St. Clair, Stone, Taney, Webster, Wright
+H5325-014 Aetna Medicare Full Dual (HMO Callaway, Crawford, Franklin, Gasconade, Jefferson, Lincoln, St. Charles, St. Louis, St. Louis City,
+D-SNP) Warren
+H5325-015 Aetna Medicare Full Dual (HMO Adair, Audrain, Bollinger, Boone, Butler, Camden, Cape Girardeau, Carter, Chariton, Cole, Cooper,
+D-SNP) Dent, Howard, Howell, Iron, Knox, Lewis, Linn, Macon, Madison, Maries, Marion, Miller,
+Mississippi, Moniteau, Monroe, Montgomery, Morgan, New Madrid, Oregon, Osage, Pemiscot,
+Perry, Phelps, Pike, Pulaski, Putnam, Ralls, Randolph, Reynolds, Ripley, Schuyler, Scott,
+Shannon, Shelby, St. Francois, Ste. Genevieve, Stoddard, Sullivan, Texas, Washington, Wayne
+Generated 2026-05-09 · 34 plans listed · 1 service area pending verification
