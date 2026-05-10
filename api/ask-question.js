@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const KB_FILES = [
+  { name: "Plan-Service-Areas.md", label: "Plan Service Areas & County Lookup" },
   { name: "Plans-Overview.md", label: "Plans Overview" },
   { name: "Coverage-Details.md", label: "Coverage Details" },
   { name: "Pricing.md", label: "Pricing" },
@@ -12,12 +13,13 @@ const KB_FILES = [
 ];
 
 const KB_KEYWORDS = {
-  "Plans-Overview.md": ["plan", "plans", "hmo", "ppo", "medicare advantage", "option", "type", "overview", "h2663", "h-number"],
-  "Coverage-Details.md": ["cover", "coverage", "benefit", "dental", "vision", "drug", "prescription", "hospital", "doctor", "specialist", "network"],
-  "Pricing.md": ["cost", "price", "premium", "deductible", "copay", "copayment", "out-of-pocket", "pay", "fee", "afford", "cheap", "expensive", "dollar", "$", "moop", "maximum"],
-  "Eligibility.md": ["eligible", "eligibility", "qualify", "enroll", "enrollment", "join", "age", "65", "disability", "medicaid", "dual", "county", "residency"],
-  "Exclusions-Limitations.md": ["exclusion", "limit", "limitation", "not covered", "exclude", "restriction", "denied", "deny", "won't cover", "excluded"],
-  "FAQs.md": ["how", "when", "where", "what", "can i", "do i", "faq", "question", "help", "difference"],
+  "Plan-Service-Areas.md": ["county", "counties", "service area", "coverage area", "where", "location", "zip", "city", "florissant", "springfield", "kansas city", "st. louis", "joplin", "columbia", "jefferson city", "d-snp", "dual", "h5325", "h1608", "h2663", "available in", "serve", "serves"],
+  "Plans-Overview.md": ["plan", "plans", "hmo", "ppo", "medicare advantage", "option", "type", "overview", "h-number"],
+  "Coverage-Details.md": ["cover", "coverage", "benefit", "dental", "vision", "drug", "prescription", "hospital", "doctor", "specialist", "network", "otc"],
+  "Pricing.md": ["cost", "price", "premium", "deductible", "copay", "copayment", "out-of-pocket", "pay", "fee", "afford", "dollar", "$", "moop", "maximum"],
+  "Eligibility.md": ["eligible", "eligibility", "qualify", "enroll", "enrollment", "join", "age", "65", "disability", "medicaid", "residency"],
+  "Exclusions-Limitations.md": ["exclusion", "limit", "limitation", "not covered", "exclude", "restriction", "denied", "deny", "excluded"],
+  "FAQs.md": ["how", "when", "can i", "do i", "faq", "question", "help", "difference"],
 };
 
 function selectRelevantFiles(conversationText) {
@@ -40,7 +42,8 @@ function loadKnowledgeBase(relevantFiles) {
     const filePath = path.join(kbPath, file.name);
     try {
       const raw = fs.readFileSync(filePath, "utf-8");
-      const content = raw.length > 3000 ? raw.slice(0, 3000) + "\n[truncated]" : raw;
+      const limit = file.name === "Plan-Service-Areas.md" ? 12000 : 3000;
+      const content = raw.length > limit ? raw.slice(0, limit) + "\n[truncated]" : raw;
       kb.push({ ...file, content });
     } catch (err) {
       console.error(`Failed to load ${file.name}:`, err.message);
