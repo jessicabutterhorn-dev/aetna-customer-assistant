@@ -1,1 +1,7 @@
 .vercel
+node_modules/
+.env
+.venv/
+build/
+# Raw PDFs stay in the Obsidian vault — extracted text is committed to knowledge-base/raw-text/
+# If you add new PDFs, run: .venv/Scripts/python scripts/extract-pdfs.py
