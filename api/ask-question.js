@@ -1,9 +1,9 @@
-const Groq = require("groq-sdk");
+const Cerebras = require("@cerebras/cerebras_cloud_sdk");
 const fs = require("fs");
 const path = require("path");
 
 const KB_PATH = process.env.KB_PATH || path.join(process.cwd(), "knowledge-base");
-const MODEL_ID = process.env.MODEL_ID || "llama-3.3-70b-versatile";
+const MODEL_ID = process.env.MODEL_ID || "llama3.1-8b";
 const MAX_TOKENS = 1500;
 
 // Small files always included regardless of query topic
@@ -351,8 +351,8 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: "question or messages is required" });
   }
 
-  if (!process.env.GROQ_API_KEY) {
-    return res.status(500).json({ error: "GROQ_API_KEY not configured" });
+  if (!process.env.CEREBRAS_API_KEY) {
+    return res.status(500).json({ error: "CEREBRAS_API_KEY not configured" });
   }
 
   const files = selectFiles(conversationText);
@@ -362,7 +362,7 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "Knowledge base could not be loaded" });
   }
 
-  const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  const client = new Cerebras({ apiKey: process.env.CEREBRAS_API_KEY });
 
   try {
     const response = await client.chat.completions.create({
@@ -379,7 +379,7 @@ module.exports = async function handler(req, res) {
 
     return res.status(200).json({ answer, sources });
   } catch (err) {
-    console.error("Groq API error:", err.message);
+    console.error("Cerebras API error:", err.message);
     return res.status(500).json({ error: "Failed to get answer. Please try again." });
   }
 };
