@@ -1,4 +1,4 @@
-const Anthropic = require("@anthropic-ai/sdk");
+const Groq = require("groq-sdk");
 const fs = require("fs");
 const path = require("path");
 
@@ -11,16 +11,36 @@ const KB_FILES = [
   { name: "FAQs.md", label: "FAQs" },
 ];
 
-function loadKnowledgeBase() {
-  const kbPath =
-    process.env.KB_PATH ||
-    path.join(process.cwd(), "knowledge-base");
+const KB_KEYWORDS = {
+  "Plans-Overview.md": ["plan", "plans", "hmo", "ppo", "medicare advantage", "option", "type", "overview", "h2663", "h-number"],
+  "Coverage-Details.md": ["cover", "coverage", "benefit", "dental", "vision", "drug", "prescription", "hospital", "doctor", "specialist", "network"],
+  "Pricing.md": ["cost", "price", "premium", "deductible", "copay", "copayment", "out-of-pocket", "pay", "fee", "afford", "cheap", "expensive", "dollar", "$", "moop", "maximum"],
+  "Eligibility.md": ["eligible", "eligibility", "qualify", "enroll", "enrollment", "join", "age", "65", "disability", "medicaid", "dual", "county", "residency"],
+  "Exclusions-Limitations.md": ["exclusion", "limit", "limitation", "not covered", "exclude", "restriction", "denied", "deny", "won't cover", "excluded"],
+  "FAQs.md": ["how", "when", "where", "what", "can i", "do i", "faq", "question", "help", "difference"],
+};
 
+function selectRelevantFiles(conversationText) {
+  const q = conversationText.toLowerCase();
+  const scores = {};
+  for (const [file, keywords] of Object.entries(KB_KEYWORDS)) {
+    scores[file] = keywords.filter((kw) => q.includes(kw)).length;
+  }
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const topFiles = sorted.slice(0, 2).filter(([, score]) => score > 0).map(([f]) => f);
+  if (topFiles.length === 0) return KB_FILES.map((f) => f.name);
+  return topFiles;
+}
+
+function loadKnowledgeBase(relevantFiles) {
+  const kbPath = process.env.KB_PATH || path.join(process.cwd(), "knowledge-base");
   const kb = [];
   for (const file of KB_FILES) {
+    if (!relevantFiles.includes(file.name)) continue;
     const filePath = path.join(kbPath, file.name);
     try {
-      const content = fs.readFileSync(filePath, "utf-8");
+      const raw = fs.readFileSync(filePath, "utf-8");
+      const content = raw.length > 3000 ? raw.slice(0, 3000) + "\n[truncated]" : raw;
       kb.push({ ...file, content });
     } catch (err) {
       console.error(`Failed to load ${file.name}:`, err.message);
@@ -36,14 +56,31 @@ function buildSystemPrompt(kb) {
 
   return `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri. You answer questions with 100% accuracy based only on the knowledge base below. Never guess or make up information.
 
+CLARIFYING QUESTIONS STRATEGY:
+Before answering plan-specific questions, ask 1 targeted clarifying question if key context is missing. Prioritize asking about:
+1. Plan H-number (e.g., H2663-021) — required for specific cost/coverage questions since all 34 plans differ
+2. County of residence — required for availability/eligibility questions
+3. Whether they have Medicaid — affects dual-eligible plans and cost-sharing
+4. What specific aspect they need (premium vs copay vs deductible vs out-of-pocket max)
+
+Do NOT ask clarifying questions if:
+- The question is general/conceptual (e.g., "What is a deductible?", "What plans exist?")
+- The answer applies equally to all plans
+- You already have enough context from the conversation
+- The user is asking for an overview or comparison
+
+Ask at most 1 question per response. Once you have enough context, answer directly.
+
 When answering:
 - Be clear, concise, and helpful
 - If the answer is in the knowledge base, provide it accurately
 - If the question cannot be answered from the knowledge base, say so explicitly
-- Always cite which sections of the knowledge base support your answer
+- Cite which sections of the knowledge base support your answer
 
-After your answer, output a JSON block in this exact format (no markdown fences):
+After your final answer (not when asking clarifying questions), output a JSON block in this exact format (no markdown fences):
 SOURCES_JSON:{"sources":[{"file":"filename.md","label":"Section Label","excerpt":"2-3 relevant lines from that file"}]}
+
+If you are asking a clarifying question (not providing a final answer), do NOT output SOURCES_JSON.
 
 KNOWLEDGE BASE:
 
@@ -54,10 +91,8 @@ function extractSources(text) {
   const marker = "SOURCES_JSON:";
   const idx = text.indexOf(marker);
   if (idx === -1) return { answer: text, sources: [] };
-
   const answer = text.slice(0, idx).trim();
   const jsonStr = text.slice(idx + marker.length).trim();
-
   try {
     const parsed = JSON.parse(jsonStr);
     return { answer, sources: parsed.sources || [] };
@@ -71,44 +106,53 @@ module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  const { question, messages } = req.body || {};
+
+  // Support both single question and full conversation history
+  let groqMessages;
+  let conversationText;
+
+  if (messages && Array.isArray(messages) && messages.length > 0) {
+    groqMessages = messages.map((m) => ({ role: m.role, content: m.content }));
+    conversationText = messages.map((m) => m.content).join(" ");
+  } else if (question && typeof question === "string" && question.trim()) {
+    groqMessages = [{ role: "user", content: question.trim() }];
+    conversationText = question.trim();
+  } else {
+    return res.status(400).json({ error: "question or messages is required" });
   }
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+  if (!process.env.GROQ_API_KEY) {
+    return res.status(500).json({ error: "GROQ_API_KEY not configured" });
   }
 
-  const { question } = req.body || {};
-  if (!question || typeof question !== "string" || !question.trim()) {
-    return res.status(400).json({ error: "question is required" });
-  }
-
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return res.status(500).json({ error: "ANTHROPIC_API_KEY not configured" });
-  }
-
-  const kb = loadKnowledgeBase();
+  const relevantFiles = selectRelevantFiles(conversationText);
+  const kb = loadKnowledgeBase(relevantFiles);
   if (kb.length === 0) {
     return res.status(500).json({ error: "Knowledge base could not be loaded" });
   }
 
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
   try {
-    const message = await client.messages.create({
-      model: "claude-opus-4-6",
+    const completion = await client.chat.completions.create({
+      model: "llama-3.1-8b-instant",
       max_tokens: 1024,
-      system: buildSystemPrompt(kb),
-      messages: [{ role: "user", content: question.trim() }],
+      messages: [
+        { role: "system", content: buildSystemPrompt(kb) },
+        ...groqMessages,
+      ],
     });
 
-    const raw = message.content[0]?.text || "";
+    const raw = completion.choices[0]?.message?.content || "";
     const { answer, sources } = extractSources(raw);
 
     return res.status(200).json({ answer, sources });
   } catch (err) {
-    console.error("Claude API error:", err.message);
+    console.error("Groq API error:", err.message);
     return res.status(500).json({ error: "Failed to get answer. Please try again." });
   }
 };
