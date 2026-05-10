@@ -358,6 +358,58 @@ function extractSources(text) {
   }
 }
 
+const INFERENCE_PROVIDER = process.env.INFERENCE_PROVIDER || "anthropic";
+
+// OpenAI-compatible call used by Cerebras and Groq
+async function callOpenAICompatible(endpoint, apiKey, providerName, systemPrompt, messages) {
+  const apiRes = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: MODEL_ID,
+      max_tokens: MAX_TOKENS,
+      messages: [{ role: "system", content: systemPrompt }, ...messages],
+    }),
+  });
+  if (!apiRes.ok) {
+    const body = await apiRes.text();
+    throw Object.assign(new Error(`${providerName} HTTP ${apiRes.status}: ${body}`), { status: apiRes.status });
+  }
+  const data = await apiRes.json();
+  const raw = data.choices?.[0]?.message?.content || "";
+  console.log(JSON.stringify({
+    provider: providerName,
+    input_tokens: data.usage?.prompt_tokens ?? null,
+    output_tokens: data.usage?.completion_tokens ?? null,
+  }));
+  return raw;
+}
+
+async function callCerebras(files, messages) {
+  return callOpenAICompatible(
+    "https://api.cerebras.ai/v1/chat/completions",
+    process.env.CEREBRAS_API_KEY,
+    "cerebras",
+    buildSystemPrompt(files),
+    messages
+  );
+}
+
+async function callGroq(files, messages) {
+  return callOpenAICompatible(
+    "https://api.groq.com/openai/v1/chat/completions",
+    process.env.GROQ_API_KEY,
+    "groq",
+    buildSystemPrompt(files),
+    messages
+  );
+}
+
+// Placeholder — replaced in commit 5 with real Anthropic SDK call
+async function callAnthropic(files, messages) {
+  throw new Error("Anthropic provider not yet implemented — set INFERENCE_PROVIDER=cerebras");
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -368,60 +420,41 @@ module.exports = async function handler(req, res) {
 
   const { question, messages } = req.body || {};
 
-  let anthropicMessages;
+  let userMessages;
   let conversationText;
 
   if (messages && Array.isArray(messages) && messages.length > 0) {
-    anthropicMessages = messages.map((m) => ({ role: m.role, content: m.content }));
+    userMessages = messages.map((m) => ({ role: m.role, content: m.content }));
     conversationText = messages.map((m) => m.content).join(" ");
   } else if (question && typeof question === "string" && question.trim()) {
-    anthropicMessages = [{ role: "user", content: question.trim() }];
+    userMessages = [{ role: "user", content: question.trim() }];
     conversationText = question.trim();
   } else {
     return res.status(400).json({ error: "question or messages is required" });
   }
 
-  if (!process.env.CEREBRAS_API_KEY) {
-    return res.status(500).json({ error: "CEREBRAS_API_KEY not configured" });
-  }
-
-  const files = selectFiles(conversationText);
-  console.log(`Loaded ${files.length} KB files: ${files.map((f) => f.label).join(", ")}`);
+  const provider = INFERENCE_PROVIDER;
+  const files = selectFiles(conversationText, provider);
+  console.log(`[${provider}] Loaded ${files.length} KB files: ${files.map((f) => f.label).join(", ")}`);
 
   if (files.length === 0) {
     return res.status(500).json({ error: "Knowledge base could not be loaded" });
   }
 
+  let raw;
   try {
-    const apiRes = await fetch("https://api.cerebras.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.CEREBRAS_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: MODEL_ID,
-        max_tokens: MAX_TOKENS,
-        messages: [
-          { role: "system", content: buildSystemPrompt(files) },
-          ...anthropicMessages,
-        ],
-      }),
-    });
-
-    if (!apiRes.ok) {
-      const errBody = await apiRes.text();
-      console.error("Cerebras HTTP error:", apiRes.status, errBody);
-      return res.status(500).json({ error: "Failed to get answer. Please try again." });
+    if (provider === "cerebras") {
+      raw = await callCerebras(files, userMessages);
+    } else if (provider === "groq") {
+      raw = await callGroq(files, userMessages);
+    } else {
+      raw = await callAnthropic(files, userMessages);
     }
-
-    const data = await apiRes.json();
-    const raw = data.choices?.[0]?.message?.content || "";
-    const { answer, sources } = extractSources(raw);
-
-    return res.status(200).json({ answer, sources });
   } catch (err) {
-    console.error("Cerebras fetch error:", err.message);
+    console.error(`Provider error [${provider}]:`, err.message);
     return res.status(500).json({ error: "Failed to get answer. Please try again." });
   }
+
+  const { answer, sources } = extractSources(raw);
+  return res.status(200).json({ answer, sources });
 };
