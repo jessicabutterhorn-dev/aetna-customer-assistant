@@ -5,6 +5,13 @@ const path = require("path");
 const KB_FILES = [
   { name: "Missouri-Cities-Counties.md", label: "Missouri Cities & Counties" },
   { name: "Plan-Service-Areas.md", label: "Plan Service Areas & County Lookup" },
+  { name: "Escalation-Language.md", label: "Escalation Language & Disclaimers" },
+  { name: "Skill-Drug-Question.md", label: "Drug & Formulary Question Skill" },
+  { name: "Skill-TrOOP-Question.md", label: "TrOOP Question Skill" },
+  { name: "Skill-DME-PA-Question.md", label: "DME & Prior Authorization Skill" },
+  { name: "Skill-Clarify-Plan-Identity.md", label: "Clarify Plan Identity Skill" },
+  { name: "Skill-Classify-Plan-Year-Scope.md", label: "Classify Plan vs Year Scope Skill" },
+  { name: "Heartland-Market-Scope.md", label: "Heartland Market Scope" },
   { name: "Plans-Overview.md", label: "Plans Overview" },
   { name: "Coverage-Details.md", label: "Coverage Details" },
   { name: "Pricing.md", label: "Pricing" },
@@ -16,9 +23,16 @@ const KB_FILES = [
 const KB_KEYWORDS = {
   "Missouri-Cities-Counties.md": ["city", "town", "village", "lives in", "located in", "from", "address", "florissant", "springfield", "independence", "lee's summit", "o'fallon", "wentzville", "blue springs", "joplin", "columbia", "jefferson city", "chesterfield", "st. peters", "st. joseph", "st. charles", "st. louis"],
   "Plan-Service-Areas.md": ["county", "counties", "service area", "coverage area", "where", "available in", "serve", "serves", "d-snp", "dual", "h5325", "h1608", "h2663", "plans in", "what plans"],
+  "Escalation-Language.md": ["escalate", "transfer", "supervisor", "cannot confirm", "not in formulary", "conflict", "unclear", "contact aetna", "disclaimer", "closing"],
+  "Skill-Drug-Question.md": ["drug", "medication", "prescription", "rx", "formulary", "tier", "part d", "pharmacy", "script", "prior auth", "pa", "step therapy", "quantity limit"],
+  "Skill-TrOOP-Question.md": ["troop", "true out-of-pocket", "carryover", "carry over", "accumulation", "does it reset", "reset", "catastrophic"],
+  "Skill-DME-PA-Question.md": ["dme", "durable medical", "wheelchair", "walker", "oxygen", "prior authorization", "prior auth", "pa required", "approval"],
+  "Skill-Clarify-Plan-Identity.md": ["which plan", "plan name", "plan type", "identify", "clarify plan", "aetna medicare signature", "aetna medicare premier"],
+  "Skill-Classify-Plan-Year-Scope.md": ["plan year", "carry over", "switch plans", "next year", "new year", "same year", "plan change", "disenroll"],
+  "Heartland-Market-Scope.md": ["heartland", "all plans", "market", "scope", "all 34", "every plan"],
   "Plans-Overview.md": ["plan", "plans", "hmo", "ppo", "medicare advantage", "option", "type", "overview", "h-number"],
-  "Coverage-Details.md": ["cover", "coverage", "benefit", "dental", "vision", "drug", "prescription", "hospital", "doctor", "specialist", "network", "otc"],
-  "Pricing.md": ["cost", "price", "premium", "deductible", "copay", "copayment", "out-of-pocket", "pay", "fee", "afford", "dollar", "$", "moop", "maximum"],
+  "Coverage-Details.md": ["cover", "coverage", "benefit", "dental", "vision", "hospital", "doctor", "specialist", "network", "otc", "hearing"],
+  "Pricing.md": ["cost", "price", "premium", "deductible", "copay", "copayment", "out-of-pocket", "pay", "fee", "dollar", "$", "moop", "maximum"],
   "Eligibility.md": ["eligible", "eligibility", "qualify", "enroll", "enrollment", "join", "age", "65", "disability", "medicaid", "residency"],
   "Exclusions-Limitations.md": ["exclusion", "limit", "limitation", "not covered", "exclude", "restriction", "denied", "deny", "excluded"],
   "FAQs.md": ["how", "when", "can i", "do i", "faq", "question", "help", "difference"],
@@ -67,7 +81,16 @@ function buildSystemPrompt(kb) {
     .map((f) => `## ${f.label} (${f.name})\n\n${f.content}`)
     .join("\n\n---\n\n");
 
-  return `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri. You answer questions with 100% accuracy based only on the knowledge base below. Never guess or make up information.
+  return `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri (Heartland Market). You answer questions with 100% accuracy based only on the knowledge base below. Never guess or make up information.
+
+MANDATORY CLOSING DISCLAIMER: Append this to every answer that references any Aetna plan document:
+"This information reflects the 2026 plan documents available in the system. For the most current and up-to-date information, please visit AetnaMedicare.com or contact Aetna Medicare Customer Service."
+
+ESCALATION PHRASES — use verbatim when needed:
+- Information not found: "I cannot confirm this from the available knowledge base."
+- Documents conflict: "The plan documents do not clearly define this requirement. Please contact Aetna Medicare Customer Service for confirmation."
+- Drug not in formulary: "This drug does not appear in the uploaded formulary for this plan. For the most current information, please visit AetnaMedicare.com or contact Aetna Medicare Customer Service."
+- No plan ID: "To give you an accurate answer, I need to know which plan you are referring to. Please provide the plan name or H-code and the state/county."
 
 CITY → COUNTY → PLAN LOOKUP (do this automatically — never ask for county if city is provided):
 When a user mentions a city or town, look it up in the "Missouri Cities & Counties" knowledge base to find the county, then use that county in the "Plan Service Areas" knowledge base to find available plans. Do this silently — do not ask the user what county their city is in.
