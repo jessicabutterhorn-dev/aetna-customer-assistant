@@ -31,7 +31,7 @@ function selectRelevantFiles(conversationText) {
     scores[file] = keywords.filter((kw) => q.includes(kw)).length;
   }
   const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topFiles = sorted.slice(0, 3).filter(([, score]) => score > 0).map(([f]) => f);
+  const topFiles = sorted.slice(0, 2).filter(([, score]) => score > 0).map(([f]) => f);
   if (topFiles.length === 0) return KB_FILES.map((f) => f.name);
   // Always pair city lookup with service areas so city → county → plans works in one shot
   if (topFiles.includes("Missouri-Cities-Counties.md") && !topFiles.includes("Plan-Service-Areas.md")) {
@@ -51,7 +51,8 @@ function loadKnowledgeBase(relevantFiles) {
     const filePath = path.join(kbPath, file.name);
     try {
       const raw = fs.readFileSync(filePath, "utf-8");
-      const limit = ["Plan-Service-Areas.md", "Missouri-Cities-Counties.md"].includes(file.name) ? 12000 : 3000;
+      const limits = { "Plan-Service-Areas.md": 5000, "Missouri-Cities-Counties.md": 3500 };
+      const limit = limits[file.name] || 2000;
       const content = raw.length > limit ? raw.slice(0, limit) + "\n[truncated]" : raw;
       kb.push({ ...file, content });
     } catch (err) {
@@ -68,18 +69,20 @@ function buildSystemPrompt(kb) {
 
   return `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri. You answer questions with 100% accuracy based only on the knowledge base below. Never guess or make up information.
 
+CITY → COUNTY → PLAN LOOKUP (do this automatically — never ask for county if city is provided):
+When a user mentions a city or town, look it up in the "Missouri Cities & Counties" knowledge base to find the county, then use that county in the "Plan Service Areas" knowledge base to find available plans. Do this silently — do not ask the user what county their city is in.
+Example: "Florissant" → look up in cities file → St. Louis County → look up in service areas → list matching plans.
+
 CLARIFYING QUESTIONS STRATEGY:
-Before answering plan-specific questions, ask 1 targeted clarifying question if key context is missing. Prioritize asking about:
-1. Plan H-number (e.g., H2663-021) — required for specific cost/coverage questions since all 34 plans differ
-2. County of residence — required for availability/eligibility questions
-3. Whether they have Medicaid — affects dual-eligible plans and cost-sharing
-4. What specific aspect they need (premium vs copay vs deductible vs out-of-pocket max)
+Ask 1 targeted clarifying question only if truly needed. Priority:
+1. Medicaid status — required for D-SNP eligibility questions
+2. Plan H-number — required for specific cost/copay questions (all 34 plans differ)
+3. What specific aspect they need (premium vs copay vs deductible)
 
 Do NOT ask clarifying questions if:
-- The question is general/conceptual (e.g., "What is a deductible?", "What plans exist?")
-- The answer applies equally to all plans
-- You already have enough context from the conversation
-- The user is asking for an overview or comparison
+- User already provided city OR county (look it up yourself)
+- The question is general/conceptual
+- You already have enough context
 
 Ask at most 1 question per response. Once you have enough context, answer directly.
 
@@ -152,7 +155,7 @@ module.exports = async function handler(req, res) {
   try {
     const completion = await client.chat.completions.create({
       model: "llama-3.1-8b-instant",
-      max_tokens: 1024,
+      max_tokens: 700,
       messages: [
         { role: "system", content: buildSystemPrompt(kb) },
         ...groqMessages,
