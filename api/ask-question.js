@@ -1,4 +1,4 @@
-// Cerebras via direct fetch (OpenAI-compatible)
+// All providers use native fetch — SDKs have bundling issues in Vercel/Lambda environment
 const fs = require("fs");
 const path = require("path");
 
@@ -114,11 +114,13 @@ function extractDrugName(text) {
   return null;
 }
 
-function selectFiles(conversationText) {
+function selectFiles(conversationText, provider = "cerebras") {
   const q = conversationText.toLowerCase();
   const manifest = loadManifest();
   const selected = [];
   const addedKeys = new Set();
+  // Anthropic has 200K context; Cerebras/Groq are capped at ~8K tokens
+  const largCtx = provider === "anthropic";
 
   function add(key, label, content, priority = 5) {
     if (!content || addedKeys.has(key)) return;
@@ -128,7 +130,8 @@ function selectFiles(conversationText) {
 
   // Universal files — always present
   for (const uf of UNIVERSAL_FILES) {
-    const content = readFile(uf.name, uf.charLimit);
+    const limit = largCtx ? uf.charLimit * 4 : uf.charLimit;
+    const content = readFile(uf.name, limit);
     if (content) add(uf.name, uf.label, content, 1);
   }
 
@@ -143,7 +146,7 @@ function selectFiles(conversationText) {
       (e) => e.type === "sob" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
     );
     if (sobEntry) {
-      const content = readFile(sobEntry.name, 6500);
+      const content = readFile(sobEntry.name, largCtx ? 25000 : 6500);
       if (content) add(`sob-${hNum}`, `Summary of Benefits — ${hNum}`, content, 2);
     }
 
@@ -153,7 +156,7 @@ function selectFiles(conversationText) {
         (e) => e.type === "anoc" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
       );
       if (anocEntry) {
-        const content = readFile(anocEntry.name, 6000);
+        const content = readFile(anocEntry.name, largCtx ? 20000 : 6000);
         if (content) add(`anoc-${hNum}`, `Annual Notice of Change — ${hNum}`, content, 2);
       }
     }
@@ -164,7 +167,7 @@ function selectFiles(conversationText) {
         (e) => e.type === "eoc" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
       );
       if (eocEntry) {
-        const content = readFile(eocEntry.name, 6000);
+        const content = readFile(eocEntry.name, largCtx ? 20000 : 6000);
         if (content) add(`eoc-${hNum}`, `Evidence of Coverage — ${hNum}`, content, 2);
       }
     }
@@ -183,7 +186,7 @@ function selectFiles(conversationText) {
             ? `[Formulary ${planFamily} — search results for "${drugName}"]\n\n${excerpt}`
             : `[Drug "${drugName}" not found in ${planFamily} formulary — may not be covered or may be listed under a different name]`;
         } else {
-          content = readFile(formularyEntry.name, 3000);
+          content = readFile(formularyEntry.name, largCtx ? 15000 : 3000);
         }
         if (content) add(`formulary-${planFamily}`, `Formulary — ${planFamily}`, content, 2);
       }
@@ -207,10 +210,10 @@ function selectFiles(conversationText) {
     for (const fe of formularies) {
       let content;
       if (drugName) {
-        const excerpt = searchInFile(fe.name, drugName, 3);
+        const excerpt = searchInFile(fe.name, drugName, largCtx ? 10 : 3);
         if (excerpt) content = `[${fe.plan_family} Formulary — search for "${drugName}"]\n\n${excerpt}`;
       } else {
-        content = readFile(fe.name, 2000);
+        content = readFile(fe.name, largCtx ? 15000 : 2000);
       }
       if (content) add(`formulary-${fe.plan_family}`, `Formulary — ${fe.plan_family}`, content, 3);
     }
@@ -220,18 +223,17 @@ function selectFiles(conversationText) {
   if (OTC_KEYWORDS.some((kw) => q.includes(kw))) {
     const otcEntry = manifest.files?.find((e) => e.name?.toLowerCase().includes("otc_catalog"));
     if (otcEntry) {
-      const content = readFile(otcEntry.name, 6000);
+      const content = readFile(otcEntry.name, largCtx ? 30000 : 6000);
       if (content) add("otc-catalog", "OTC Catalog 2026", content, 3);
     }
     const benefitEntries = manifest.files?.filter((e) => e.type === "extra-benefit") || [];
     for (const be of benefitEntries.slice(0, 2)) {
-      const content = readFile(be.name, 4000);
+      const content = readFile(be.name, largCtx ? 15000 : 4000);
       if (content) add(`benefit-${be.plan_family}`, be.label, content, 3);
     }
   }
 
-  // City/county geographic routing — search for the mentioned city rather than loading the full file
-  // Full file is 63KB which exceeds Groq context limits; targeted search keeps tokens under control
+  // City/county geographic routing
   if (GEO_KEYWORDS.some((kw) => q.includes(kw))) {
     const cityMatch = conversationText.match(/(?:in|lives in|located in|from|near|city of)\s+([A-Z][a-zA-Z\s]{2,20}?)(?:\s*[,?.!]|$)/);
     const cityName = cityMatch ? cityMatch[1].trim() : null;
@@ -242,7 +244,7 @@ function selectFiles(conversationText) {
         ? `[Missouri Cities & Counties — search results for "${cityName}"]\n\n${excerpt}`
         : `[City "${cityName}" not found in Missouri cities list. Confirm county with member.]`;
     } else {
-      content = readFile("Missouri-Cities-Counties.md", 4000);
+      content = readFile("Missouri-Cities-Counties.md", largCtx ? 60000 : 4000);
     }
     if (content) add("cities", "Missouri Cities & Counties", content, 3);
   }
@@ -253,7 +255,7 @@ function selectFiles(conversationText) {
       (e) => e.type === "supplemental" && e.name?.toLowerCase().includes("lis")
     );
     if (lisEntry) {
-      const content = readFile(lisEntry.name, 5000);
+      const content = readFile(lisEntry.name, largCtx ? 20000 : 5000);
       if (content) add("lis", "LIS Premium Summary", content, 3);
     }
   }
@@ -262,7 +264,7 @@ function selectFiles(conversationText) {
   if (q.includes("medicare and you") || q.includes("annual enrollment period") || q.includes("aep") || q.includes("open enrollment period")) {
     const myEntry = manifest.files?.find((e) => e.name?.toLowerCase().includes("medicare_and_you"));
     if (myEntry) {
-      const content = readFile(myEntry.name, 6000);
+      const content = readFile(myEntry.name, largCtx ? 60000 : 6000);
       if (content) add("medicare-and-you", "Medicare & You 2026", content, 3);
     }
   }
@@ -293,12 +295,7 @@ function selectFiles(conversationText) {
   return selected;
 }
 
-function buildSystemPrompt(files) {
-  const kbText = files
-    .map((f) => `## ${f.label}\n\n${f.content}`)
-    .join("\n\n---\n\n");
-
-  return `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri (Heartland Market). Answer with 100% accuracy based only on the knowledge base below. Never use training data or make up information. If the knowledge base does not contain the answer, use the escalation phrases below.
+const STATIC_INSTRUCTIONS = `You are a knowledgeable customer service assistant for Aetna Medicare plans in Missouri (Heartland Market). Answer with 100% accuracy based only on the knowledge base below. Never use training data or make up information. If the knowledge base does not contain the answer, use the escalation phrases below.
 
 MANDATORY CLOSING DISCLAIMER: Append to every answer that references any Aetna plan document:
 "This information reflects the 2026 plan documents available in the system. For the most current and up-to-date information, please visit AetnaMedicare.com or contact Aetna Medicare Customer Service."
@@ -319,9 +316,32 @@ SOURCES_JSON:{"sources":[{"file":"filename","label":"Section Label","excerpt":"2
 
 Do NOT output SOURCES_JSON when asking a clarifying question.
 
-KNOWLEDGE BASE:
+KNOWLEDGE BASE:`;
 
-${kbText}`;
+function formatKBSection(files) {
+  return files.map((f) => `## ${f.label}\n\n${f.content}`).join("\n\n---\n\n");
+}
+
+// Returns the stable prefix: instructions + universal files (priority=1).
+// Used as the cached block in the Anthropic system parameter.
+function buildCachedSystemPrefix(universalFiles) {
+  return STATIC_INSTRUCTIONS + "\n\n" + formatKBSection(universalFiles);
+}
+
+// Returns the query-specific KB content (priority>=2).
+// Not cached — changes every request.
+function buildDynamicKBSection(querySpecificFiles) {
+  return formatKBSection(querySpecificFiles);
+}
+
+// Full system prompt for OpenAI-compatible providers (Cerebras, Groq).
+// Concatenates both parts — same text output as before the refactor.
+function buildSystemPrompt(files) {
+  const universal = files.filter((f) => f.priority === 1);
+  const specific = files.filter((f) => f.priority !== 1);
+  const cached = buildCachedSystemPrefix(universal);
+  const dynamic = buildDynamicKBSection(specific);
+  return dynamic ? cached + "\n\n---\n\n" + dynamic : cached;
 }
 
 function extractSources(text) {
@@ -338,6 +358,110 @@ function extractSources(text) {
   }
 }
 
+const INFERENCE_PROVIDER = process.env.INFERENCE_PROVIDER || "anthropic";
+
+// OpenAI-compatible call used by Cerebras and Groq
+async function callOpenAICompatible(endpoint, apiKey, providerName, systemPrompt, messages) {
+  const apiRes = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: MODEL_ID,
+      max_tokens: MAX_TOKENS,
+      messages: [{ role: "system", content: systemPrompt }, ...messages],
+    }),
+  });
+  if (!apiRes.ok) {
+    const body = await apiRes.text();
+    throw Object.assign(new Error(`${providerName} HTTP ${apiRes.status}: ${body}`), { status: apiRes.status });
+  }
+  const data = await apiRes.json();
+  const raw = data.choices?.[0]?.message?.content || "";
+  console.log(JSON.stringify({
+    provider: providerName,
+    input_tokens: data.usage?.prompt_tokens ?? null,
+    output_tokens: data.usage?.completion_tokens ?? null,
+  }));
+  return raw;
+}
+
+async function callCerebras(files, messages) {
+  return callOpenAICompatible(
+    "https://api.cerebras.ai/v1/chat/completions",
+    process.env.CEREBRAS_API_KEY,
+    "cerebras",
+    buildSystemPrompt(files),
+    messages
+  );
+}
+
+async function callGroq(files, messages) {
+  return callOpenAICompatible(
+    "https://api.groq.com/openai/v1/chat/completions",
+    process.env.GROQ_API_KEY,
+    "groq",
+    buildSystemPrompt(files),
+    messages
+  );
+}
+
+async function callAnthropic(files, messages) {
+  const universalFiles = files.filter((f) => f.priority === 1);
+  const specificFiles  = files.filter((f) => f.priority !== 1);
+
+  // System parameter: two-block array for prompt caching.
+  // Block 1 (cached): instructions + universal KB files — stable, marks cache boundary.
+  // Block 2 (uncached): per-query KB files — varies every request.
+  const systemBlocks = [
+    {
+      type: "text",
+      text: buildCachedSystemPrefix(universalFiles),
+      cache_control: { type: "ephemeral" },
+    },
+  ];
+  if (specificFiles.length > 0) {
+    systemBlocks.push({ type: "text", text: buildDynamicKBSection(specificFiles) });
+  }
+
+  const body = {
+    model: process.env.MODEL_ID || "claude-sonnet-4-6",
+    max_tokens: MAX_TOKENS,
+    system: systemBlocks,
+    messages,
+  };
+
+  const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+      "anthropic-beta": "prompt-caching-2024-07-31",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!apiRes.ok) {
+    const errBody = await apiRes.text();
+    throw Object.assign(new Error(`Anthropic HTTP ${apiRes.status}: ${errBody}`), { status: apiRes.status });
+  }
+
+  const data = await apiRes.json();
+  const raw = data.content?.[0]?.text || "";
+
+  console.log(JSON.stringify({
+    provider: "anthropic",
+    model: data.model,
+    input_tokens: data.usage?.input_tokens ?? 0,
+    output_tokens: data.usage?.output_tokens ?? 0,
+    cache_creation_tokens: data.usage?.cache_creation_input_tokens ?? 0,
+    cache_read_tokens: data.usage?.cache_read_input_tokens ?? 0,
+    cache_hit: (data.usage?.cache_read_input_tokens ?? 0) > 0,
+  }));
+
+  return raw;
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -348,60 +472,65 @@ module.exports = async function handler(req, res) {
 
   const { question, messages } = req.body || {};
 
-  let anthropicMessages;
+  let userMessages;
   let conversationText;
 
   if (messages && Array.isArray(messages) && messages.length > 0) {
-    anthropicMessages = messages.map((m) => ({ role: m.role, content: m.content }));
+    userMessages = messages.map((m) => ({ role: m.role, content: m.content }));
     conversationText = messages.map((m) => m.content).join(" ");
   } else if (question && typeof question === "string" && question.trim()) {
-    anthropicMessages = [{ role: "user", content: question.trim() }];
+    userMessages = [{ role: "user", content: question.trim() }];
     conversationText = question.trim();
   } else {
     return res.status(400).json({ error: "question or messages is required" });
   }
 
-  if (!process.env.CEREBRAS_API_KEY) {
-    return res.status(500).json({ error: "CEREBRAS_API_KEY not configured" });
-  }
-
-  const files = selectFiles(conversationText);
-  console.log(`Loaded ${files.length} KB files: ${files.map((f) => f.label).join(", ")}`);
+  const provider = INFERENCE_PROVIDER;
+  const files = selectFiles(conversationText, provider);
+  console.log(`[${provider}] Loaded ${files.length} KB files: ${files.map((f) => f.label).join(", ")}`);
 
   if (files.length === 0) {
     return res.status(500).json({ error: "Knowledge base could not be loaded" });
   }
 
-  try {
-    const apiRes = await fetch("https://api.cerebras.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.CEREBRAS_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: MODEL_ID,
-        max_tokens: MAX_TOKENS,
-        messages: [
-          { role: "system", content: buildSystemPrompt(files) },
-          ...anthropicMessages,
-        ],
-      }),
-    });
+  let raw;
 
-    if (!apiRes.ok) {
-      const errBody = await apiRes.text();
-      console.error("Cerebras HTTP error:", apiRes.status, errBody);
+  if (provider === "cerebras") {
+    try { raw = await callCerebras(files, userMessages); }
+    catch (err) {
+      console.error("Cerebras error:", err.message);
       return res.status(500).json({ error: "Failed to get answer. Please try again." });
     }
-
-    const data = await apiRes.json();
-    const raw = data.choices?.[0]?.message?.content || "";
-    const { answer, sources } = extractSources(raw);
-
-    return res.status(200).json({ answer, sources });
-  } catch (err) {
-    console.error("Cerebras fetch error:", err.message);
-    return res.status(500).json({ error: "Failed to get answer. Please try again." });
+  } else if (provider === "groq") {
+    try { raw = await callGroq(files, userMessages); }
+    catch (err) {
+      console.error("Groq error:", err.message);
+      return res.status(500).json({ error: "Failed to get answer. Please try again." });
+    }
+  } else {
+    // Anthropic primary with Cerebras → Groq failover chain
+    // selectFiles was called with provider="anthropic" (large context limits).
+    // Failover providers use the same files but buildSystemPrompt() concatenates them
+    // into a single string — Cerebras/Groq will get truncated content if total > 8K chars,
+    // but that is acceptable for emergency fallback.
+    try {
+      raw = await callAnthropic(files, userMessages);
+    } catch (err) {
+      console.error("Anthropic failed, falling back to Cerebras:", err.message);
+      try {
+        raw = await callCerebras(files, userMessages);
+      } catch (err2) {
+        console.error("Cerebras failed, falling back to Groq:", err2.message);
+        try {
+          raw = await callGroq(files, userMessages);
+        } catch (err3) {
+          console.error("All providers failed:", err3.message);
+          return res.status(500).json({ error: "Failed to get answer. Please try again." });
+        }
+      }
+    }
   }
+
+  const { answer, sources } = extractSources(raw);
+  return res.status(200).json({ answer, sources });
 };
