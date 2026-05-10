@@ -1,4 +1,4 @@
-const Anthropic = require("@anthropic-ai/sdk");
+// All providers use native fetch — SDKs have bundling issues in Vercel/Lambda environment
 const fs = require("fs");
 const path = require("path");
 
@@ -406,14 +406,12 @@ async function callGroq(files, messages) {
 }
 
 async function callAnthropic(files, messages) {
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
   const universalFiles = files.filter((f) => f.priority === 1);
   const specificFiles  = files.filter((f) => f.priority !== 1);
 
-  // System parameter is an array of content blocks.
-  // Block 1: instructions + universal KB files — stable across requests → cached.
-  // Block 2: per-query KB files — changes every request → not cached.
+  // System parameter: two-block array for prompt caching.
+  // Block 1 (cached): instructions + universal KB files — stable, marks cache boundary.
+  // Block 2 (uncached): per-query KB files — varies every request.
   const systemBlocks = [
     {
       type: "text",
@@ -422,30 +420,43 @@ async function callAnthropic(files, messages) {
     },
   ];
   if (specificFiles.length > 0) {
-    systemBlocks.push({
-      type: "text",
-      text: buildDynamicKBSection(specificFiles),
-    });
+    systemBlocks.push({ type: "text", text: buildDynamicKBSection(specificFiles) });
   }
 
-  const response = await anthropic.messages.create({
+  const body = {
     model: process.env.MODEL_ID || "claude-sonnet-4-6",
     max_tokens: MAX_TOKENS,
     system: systemBlocks,
     messages,
+  };
+
+  const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+      "anthropic-beta": "prompt-caching-2024-07-31",
+    },
+    body: JSON.stringify(body),
   });
 
-  const raw = response.content[0]?.text || "";
+  if (!apiRes.ok) {
+    const errBody = await apiRes.text();
+    throw Object.assign(new Error(`Anthropic HTTP ${apiRes.status}: ${errBody}`), { status: apiRes.status });
+  }
 
-  // Cost telemetry — log cache_creation vs cache_read to verify caching works
+  const data = await apiRes.json();
+  const raw = data.content?.[0]?.text || "";
+
   console.log(JSON.stringify({
     provider: "anthropic",
-    model: response.model,
-    input_tokens: response.usage.input_tokens,
-    output_tokens: response.usage.output_tokens,
-    cache_creation_tokens: response.usage.cache_creation_input_tokens ?? 0,
-    cache_read_tokens: response.usage.cache_read_input_tokens ?? 0,
-    cache_hit: (response.usage.cache_read_input_tokens ?? 0) > 0,
+    model: data.model,
+    input_tokens: data.usage?.input_tokens ?? 0,
+    output_tokens: data.usage?.output_tokens ?? 0,
+    cache_creation_tokens: data.usage?.cache_creation_input_tokens ?? 0,
+    cache_read_tokens: data.usage?.cache_read_input_tokens ?? 0,
+    cache_hit: (data.usage?.cache_read_input_tokens ?? 0) > 0,
   }));
 
   return raw;
