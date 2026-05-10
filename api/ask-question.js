@@ -114,11 +114,13 @@ function extractDrugName(text) {
   return null;
 }
 
-function selectFiles(conversationText) {
+function selectFiles(conversationText, provider = "cerebras") {
   const q = conversationText.toLowerCase();
   const manifest = loadManifest();
   const selected = [];
   const addedKeys = new Set();
+  // Anthropic has 200K context; Cerebras/Groq are capped at ~8K tokens
+  const largCtx = provider === "anthropic";
 
   function add(key, label, content, priority = 5) {
     if (!content || addedKeys.has(key)) return;
@@ -128,7 +130,8 @@ function selectFiles(conversationText) {
 
   // Universal files — always present
   for (const uf of UNIVERSAL_FILES) {
-    const content = readFile(uf.name, uf.charLimit);
+    const limit = largCtx ? uf.charLimit * 4 : uf.charLimit;
+    const content = readFile(uf.name, limit);
     if (content) add(uf.name, uf.label, content, 1);
   }
 
@@ -143,7 +146,7 @@ function selectFiles(conversationText) {
       (e) => e.type === "sob" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
     );
     if (sobEntry) {
-      const content = readFile(sobEntry.name, 6500);
+      const content = readFile(sobEntry.name, largCtx ? 25000 : 6500);
       if (content) add(`sob-${hNum}`, `Summary of Benefits — ${hNum}`, content, 2);
     }
 
@@ -153,7 +156,7 @@ function selectFiles(conversationText) {
         (e) => e.type === "anoc" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
       );
       if (anocEntry) {
-        const content = readFile(anocEntry.name, 6000);
+        const content = readFile(anocEntry.name, largCtx ? 20000 : 6000);
         if (content) add(`anoc-${hNum}`, `Annual Notice of Change — ${hNum}`, content, 2);
       }
     }
@@ -164,7 +167,7 @@ function selectFiles(conversationText) {
         (e) => e.type === "eoc" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
       );
       if (eocEntry) {
-        const content = readFile(eocEntry.name, 6000);
+        const content = readFile(eocEntry.name, largCtx ? 20000 : 6000);
         if (content) add(`eoc-${hNum}`, `Evidence of Coverage — ${hNum}`, content, 2);
       }
     }
@@ -183,7 +186,7 @@ function selectFiles(conversationText) {
             ? `[Formulary ${planFamily} — search results for "${drugName}"]\n\n${excerpt}`
             : `[Drug "${drugName}" not found in ${planFamily} formulary — may not be covered or may be listed under a different name]`;
         } else {
-          content = readFile(formularyEntry.name, 3000);
+          content = readFile(formularyEntry.name, largCtx ? 15000 : 3000);
         }
         if (content) add(`formulary-${planFamily}`, `Formulary — ${planFamily}`, content, 2);
       }
@@ -207,10 +210,10 @@ function selectFiles(conversationText) {
     for (const fe of formularies) {
       let content;
       if (drugName) {
-        const excerpt = searchInFile(fe.name, drugName, 3);
+        const excerpt = searchInFile(fe.name, drugName, largCtx ? 10 : 3);
         if (excerpt) content = `[${fe.plan_family} Formulary — search for "${drugName}"]\n\n${excerpt}`;
       } else {
-        content = readFile(fe.name, 2000);
+        content = readFile(fe.name, largCtx ? 15000 : 2000);
       }
       if (content) add(`formulary-${fe.plan_family}`, `Formulary — ${fe.plan_family}`, content, 3);
     }
@@ -220,18 +223,17 @@ function selectFiles(conversationText) {
   if (OTC_KEYWORDS.some((kw) => q.includes(kw))) {
     const otcEntry = manifest.files?.find((e) => e.name?.toLowerCase().includes("otc_catalog"));
     if (otcEntry) {
-      const content = readFile(otcEntry.name, 6000);
+      const content = readFile(otcEntry.name, largCtx ? 30000 : 6000);
       if (content) add("otc-catalog", "OTC Catalog 2026", content, 3);
     }
     const benefitEntries = manifest.files?.filter((e) => e.type === "extra-benefit") || [];
     for (const be of benefitEntries.slice(0, 2)) {
-      const content = readFile(be.name, 4000);
+      const content = readFile(be.name, largCtx ? 15000 : 4000);
       if (content) add(`benefit-${be.plan_family}`, be.label, content, 3);
     }
   }
 
-  // City/county geographic routing — search for the mentioned city rather than loading the full file
-  // Full file is 63KB which exceeds Groq context limits; targeted search keeps tokens under control
+  // City/county geographic routing
   if (GEO_KEYWORDS.some((kw) => q.includes(kw))) {
     const cityMatch = conversationText.match(/(?:in|lives in|located in|from|near|city of)\s+([A-Z][a-zA-Z\s]{2,20}?)(?:\s*[,?.!]|$)/);
     const cityName = cityMatch ? cityMatch[1].trim() : null;
@@ -242,7 +244,7 @@ function selectFiles(conversationText) {
         ? `[Missouri Cities & Counties — search results for "${cityName}"]\n\n${excerpt}`
         : `[City "${cityName}" not found in Missouri cities list. Confirm county with member.]`;
     } else {
-      content = readFile("Missouri-Cities-Counties.md", 4000);
+      content = readFile("Missouri-Cities-Counties.md", largCtx ? 60000 : 4000);
     }
     if (content) add("cities", "Missouri Cities & Counties", content, 3);
   }
@@ -253,7 +255,7 @@ function selectFiles(conversationText) {
       (e) => e.type === "supplemental" && e.name?.toLowerCase().includes("lis")
     );
     if (lisEntry) {
-      const content = readFile(lisEntry.name, 5000);
+      const content = readFile(lisEntry.name, largCtx ? 20000 : 5000);
       if (content) add("lis", "LIS Premium Summary", content, 3);
     }
   }
@@ -262,7 +264,7 @@ function selectFiles(conversationText) {
   if (q.includes("medicare and you") || q.includes("annual enrollment period") || q.includes("aep") || q.includes("open enrollment period")) {
     const myEntry = manifest.files?.find((e) => e.name?.toLowerCase().includes("medicare_and_you"));
     if (myEntry) {
-      const content = readFile(myEntry.name, 6000);
+      const content = readFile(myEntry.name, largCtx ? 60000 : 6000);
       if (content) add("medicare-and-you", "Medicare & You 2026", content, 3);
     }
   }
