@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const KB_FILES = [
+  { name: "Missouri-Cities-Counties.md", label: "Missouri Cities & Counties" },
   { name: "Plan-Service-Areas.md", label: "Plan Service Areas & County Lookup" },
   { name: "Plans-Overview.md", label: "Plans Overview" },
   { name: "Coverage-Details.md", label: "Coverage Details" },
@@ -13,7 +14,8 @@ const KB_FILES = [
 ];
 
 const KB_KEYWORDS = {
-  "Plan-Service-Areas.md": ["county", "counties", "service area", "coverage area", "where", "location", "zip", "city", "florissant", "springfield", "kansas city", "st. louis", "joplin", "columbia", "jefferson city", "d-snp", "dual", "h5325", "h1608", "h2663", "available in", "serve", "serves"],
+  "Missouri-Cities-Counties.md": ["city", "town", "village", "lives in", "located in", "from", "address", "florissant", "springfield", "independence", "lee's summit", "o'fallon", "wentzville", "blue springs", "joplin", "columbia", "jefferson city", "chesterfield", "st. peters", "st. joseph", "st. charles", "st. louis"],
+  "Plan-Service-Areas.md": ["county", "counties", "service area", "coverage area", "where", "available in", "serve", "serves", "d-snp", "dual", "h5325", "h1608", "h2663", "plans in", "what plans"],
   "Plans-Overview.md": ["plan", "plans", "hmo", "ppo", "medicare advantage", "option", "type", "overview", "h-number"],
   "Coverage-Details.md": ["cover", "coverage", "benefit", "dental", "vision", "drug", "prescription", "hospital", "doctor", "specialist", "network", "otc"],
   "Pricing.md": ["cost", "price", "premium", "deductible", "copay", "copayment", "out-of-pocket", "pay", "fee", "afford", "dollar", "$", "moop", "maximum"],
@@ -29,8 +31,15 @@ function selectRelevantFiles(conversationText) {
     scores[file] = keywords.filter((kw) => q.includes(kw)).length;
   }
   const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topFiles = sorted.slice(0, 2).filter(([, score]) => score > 0).map(([f]) => f);
+  const topFiles = sorted.slice(0, 3).filter(([, score]) => score > 0).map(([f]) => f);
   if (topFiles.length === 0) return KB_FILES.map((f) => f.name);
+  // Always pair city lookup with service areas so city → county → plans works in one shot
+  if (topFiles.includes("Missouri-Cities-Counties.md") && !topFiles.includes("Plan-Service-Areas.md")) {
+    topFiles.push("Plan-Service-Areas.md");
+  }
+  if (topFiles.includes("Plan-Service-Areas.md") && !topFiles.includes("Missouri-Cities-Counties.md")) {
+    topFiles.push("Missouri-Cities-Counties.md");
+  }
   return topFiles;
 }
 
@@ -42,7 +51,7 @@ function loadKnowledgeBase(relevantFiles) {
     const filePath = path.join(kbPath, file.name);
     try {
       const raw = fs.readFileSync(filePath, "utf-8");
-      const limit = file.name === "Plan-Service-Areas.md" ? 12000 : 3000;
+      const limit = ["Plan-Service-Areas.md", "Missouri-Cities-Counties.md"].includes(file.name) ? 12000 : 3000;
       const content = raw.length > limit ? raw.slice(0, limit) + "\n[truncated]" : raw;
       kb.push({ ...file, content });
     } catch (err) {
