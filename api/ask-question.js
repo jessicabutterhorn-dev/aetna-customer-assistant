@@ -1,4 +1,4 @@
-const Cerebras = require("@cerebras/cerebras_cloud_sdk");
+// Cerebras via direct fetch (OpenAI-compatible)
 const fs = require("fs");
 const path = require("path");
 
@@ -143,7 +143,7 @@ function selectFiles(conversationText) {
       (e) => e.type === "sob" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
     );
     if (sobEntry) {
-      const content = readFile(sobEntry.name, 8000);
+      const content = readFile(sobEntry.name, 6500);
       if (content) add(`sob-${hNum}`, `Summary of Benefits — ${hNum}`, content, 2);
     }
 
@@ -153,7 +153,7 @@ function selectFiles(conversationText) {
         (e) => e.type === "anoc" && e.plan_ids?.some((id) => id.toLowerCase() === hLower)
       );
       if (anocEntry) {
-        const content = readFile(anocEntry.name, 8000);
+        const content = readFile(anocEntry.name, 6000);
         if (content) add(`anoc-${hNum}`, `Annual Notice of Change — ${hNum}`, content, 2);
       }
     }
@@ -190,14 +190,24 @@ function selectFiles(conversationText) {
     }
   }
 
-  // Drug question without H-number → search all formularies
+  // Drug question without H-number → search formulary/ies
   if (hNums.length === 0 && DRUG_KEYWORDS.some((kw) => q.includes(kw))) {
     const drugName = extractDrugName(conversationText);
-    const formularies = manifest.files?.filter((e) => e.type === "formulary") || [];
-    for (const fe of formularies.slice(0, 3)) {
+    // Narrow to one formulary if plan type mentioned in question
+    let familyFilter = null;
+    if (/\bd-?snp\b/i.test(q)) familyFilter = "DSNP";
+    else if (/\bc-?snp\b/i.test(q)) familyFilter = "CSNP";
+    else if (/\bhmo\b|\bppo\b/i.test(q)) familyFilter = "HMO";
+
+    const allFormularies = manifest.files?.filter((e) => e.type === "formulary") || [];
+    const formularies = familyFilter
+      ? allFormularies.filter((e) => e.plan_family === familyFilter)
+      : allFormularies.slice(0, 3);
+
+    for (const fe of formularies) {
       let content;
       if (drugName) {
-        const excerpt = searchInFile(fe.name, drugName);
+        const excerpt = searchInFile(fe.name, drugName, 3);
         if (excerpt) content = `[${fe.plan_family} Formulary — search for "${drugName}"]\n\n${excerpt}`;
       } else {
         content = readFile(fe.name, 2000);
@@ -362,24 +372,36 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "Knowledge base could not be loaded" });
   }
 
-  const client = new Cerebras({ apiKey: process.env.CEREBRAS_API_KEY });
-
   try {
-    const response = await client.chat.completions.create({
-      model: MODEL_ID,
-      max_tokens: MAX_TOKENS,
-      messages: [
-        { role: "system", content: buildSystemPrompt(files) },
-        ...anthropicMessages,
-      ],
+    const apiRes = await fetch("https://api.cerebras.ai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.CEREBRAS_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: MODEL_ID,
+        max_tokens: MAX_TOKENS,
+        messages: [
+          { role: "system", content: buildSystemPrompt(files) },
+          ...anthropicMessages,
+        ],
+      }),
     });
 
-    const raw = response.choices[0]?.message?.content || "";
+    if (!apiRes.ok) {
+      const errBody = await apiRes.text();
+      console.error("Cerebras HTTP error:", apiRes.status, errBody);
+      return res.status(500).json({ error: "Failed to get answer. Please try again." });
+    }
+
+    const data = await apiRes.json();
+    const raw = data.choices?.[0]?.message?.content || "";
     const { answer, sources } = extractSources(raw);
 
     return res.status(200).json({ answer, sources });
   } catch (err) {
-    console.error("Cerebras API error:", err.message);
+    console.error("Cerebras fetch error:", err.message);
     return res.status(500).json({ error: "Failed to get answer. Please try again." });
   }
 };
