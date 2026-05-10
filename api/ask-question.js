@@ -483,17 +483,41 @@ module.exports = async function handler(req, res) {
   }
 
   let raw;
-  try {
-    if (provider === "cerebras") {
-      raw = await callCerebras(files, userMessages);
-    } else if (provider === "groq") {
-      raw = await callGroq(files, userMessages);
-    } else {
-      raw = await callAnthropic(files, userMessages);
+
+  if (provider === "cerebras") {
+    try { raw = await callCerebras(files, userMessages); }
+    catch (err) {
+      console.error("Cerebras error:", err.message);
+      return res.status(500).json({ error: "Failed to get answer. Please try again." });
     }
-  } catch (err) {
-    console.error(`Provider error [${provider}]:`, err.message);
-    return res.status(500).json({ error: "Failed to get answer. Please try again." });
+  } else if (provider === "groq") {
+    try { raw = await callGroq(files, userMessages); }
+    catch (err) {
+      console.error("Groq error:", err.message);
+      return res.status(500).json({ error: "Failed to get answer. Please try again." });
+    }
+  } else {
+    // Anthropic primary with Cerebras → Groq failover chain
+    // selectFiles was called with provider="anthropic" (large context limits).
+    // Failover providers use the same files but buildSystemPrompt() concatenates them
+    // into a single string — Cerebras/Groq will get truncated content if total > 8K chars,
+    // but that is acceptable for emergency fallback.
+    try {
+      raw = await callAnthropic(files, userMessages);
+    } catch (err) {
+      console.error("Anthropic failed, falling back to Cerebras:", err.message);
+      try {
+        raw = await callCerebras(files, userMessages);
+      } catch (err2) {
+        console.error("Cerebras failed, falling back to Groq:", err2.message);
+        try {
+          raw = await callGroq(files, userMessages);
+        } catch (err3) {
+          console.error("All providers failed:", err3.message);
+          return res.status(500).json({ error: "Failed to get answer. Please try again." });
+        }
+      }
+    }
   }
 
   const { answer, sources } = extractSources(raw);
