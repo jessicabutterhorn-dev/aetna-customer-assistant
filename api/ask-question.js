@@ -6,6 +6,7 @@ const KB_FILES = [
   { name: "Missouri-Cities-Counties.md", label: "Missouri Cities & Counties" },
   { name: "Plan-Service-Areas.md", label: "Plan Service Areas & County Lookup" },
   { name: "Escalation-Language.md", label: "Escalation Language & Disclaimers" },
+  { name: "Source-Hierarchy.md", label: "Source Hierarchy" },
   { name: "Skill-Drug-Question.md", label: "Drug & Formulary Question Skill" },
   { name: "Skill-TrOOP-Question.md", label: "TrOOP Question Skill" },
   { name: "Skill-DME-PA-Question.md", label: "DME & Prior Authorization Skill" },
@@ -18,6 +19,9 @@ const KB_FILES = [
   { name: "Eligibility.md", label: "Eligibility" },
   { name: "Exclusions-Limitations.md", label: "Exclusions & Limitations" },
   { name: "FAQs.md", label: "FAQs" },
+  { name: "ADR-005-Clarification.md", label: "Clarification Rules (ADR-005)" },
+  { name: "ADR-006-Escalation.md", label: "Escalation Rules (ADR-006)" },
+  { name: "ADR-007-No-Legal.md", label: "No Legal Interpretation (ADR-007)" },
 ];
 
 const KB_KEYWORDS = {
@@ -36,6 +40,10 @@ const KB_KEYWORDS = {
   "Eligibility.md": ["eligible", "eligibility", "qualify", "enroll", "enrollment", "join", "age", "65", "disability", "medicaid", "residency"],
   "Exclusions-Limitations.md": ["exclusion", "limit", "limitation", "not covered", "exclude", "restriction", "denied", "deny", "excluded"],
   "FAQs.md": ["how", "when", "can i", "do i", "faq", "question", "help", "difference"],
+  "Source-Hierarchy.md": ["source hierarchy", "hierarchy", "which document", "conflicts", "conflict between", "eoc says", "sob says", "which source", "authority", "authoritative"],
+  "ADR-005-Clarification.md": ["clarify", "which plan", "need to know", "before answering", "clarification", "plan identity"],
+  "ADR-006-Escalation.md": ["escalate", "escalation", "transfer", "supervisor", "cannot confirm", "out of scope"],
+  "ADR-007-No-Legal.md": ["legal", "interpret", "lawsuit", "liability", "sue", "attorney", "lawyer", "legal advice"],
 };
 
 function selectRelevantFiles(conversationText) {
@@ -65,7 +73,7 @@ function loadKnowledgeBase(relevantFiles) {
     const filePath = path.join(kbPath, file.name);
     try {
       const raw = fs.readFileSync(filePath, "utf-8");
-      const limits = { "Plan-Service-Areas.md": 5000, "Missouri-Cities-Counties.md": 3500 };
+      const limits = { "Plan-Service-Areas.md": 5000, "Missouri-Cities-Counties.md": 30000 };
       const limit = limits[file.name] || 2000;
       const content = raw.length > limit ? raw.slice(0, limit) + "\n[truncated]" : raw;
       kb.push({ ...file, content });
